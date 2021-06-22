@@ -28,7 +28,7 @@
 					<a href="{{ route('staff-profile') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>My Profile</a>
 				</li>			
 				<li class="menu-item {{ request()->is('staff/change-password')  ? 'active' : '' }}">
-					<a href="{{ route('staff-change-password') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Change Password</a>
+					<a href="{{ route('staff-change-password') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-lock"></i>Change Password</a>
 				</li>	
 				<li class="menu-item">
 					<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-power-off"></i>Logout</a>

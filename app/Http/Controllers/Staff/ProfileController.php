@@ -62,6 +62,7 @@ class ProfileController extends Controller
 
     public function change(Request $request)
     {
+       if($_POST){
         $rules = array(
             'old_password'     => 'required',
             'new_password'  => ['required', 'min:8', 'max:16', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&+-]/'],
@@ -98,6 +99,10 @@ class ProfileController extends Controller
                 return back()->withErrors(['old_password' => 'Please enter correct current password']);
             }
         }
+       }else{           
+        $data['title'] = 'Change Password';
+        return view('staff.settings.change-password', $data);
+       }
     }
     
 }

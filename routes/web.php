@@ -46,4 +46,5 @@ Route::group(['prefix' => 'staff', 'middleware' => ['auth', 'staff']], function 
     
     //Profile
     Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Staff\ProfileController::class, 'index'])->name('staff-profile');
+    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Staff\ProfileController::class, 'change'])->name('staff-change-password');
 });
