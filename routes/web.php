@@ -31,11 +31,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 // Doctor
 Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'doctor']], function () {
+    //Dashboard
     Route::get('/', [\App\Http\Controllers\Doctor\DashboardController::class, 'index'])->name('doctor');
+
+    //Profile
+
 });
 
 
 // Staff
 Route::group(['prefix' => 'staff', 'middleware' => ['auth', 'staff']], function () {
+    //Dashboard
     Route::get('/', [\App\Http\Controllers\Staff\DashboardController::class, 'index'])->name('staff');
+    
+    //Profile
+    Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Staff\ProfileController::class, 'index'])->name('staff-profile');
 });

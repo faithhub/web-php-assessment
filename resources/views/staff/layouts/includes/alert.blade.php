@@ -1,3 +1,5 @@
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
 {{-- <script src="{{ asset('vendor/jquery.2.2.3.min.js')}}"></script> --}}
 <div class="flash-container">
 	{{-- @if(Session::has('message'))
