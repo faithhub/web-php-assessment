@@ -28,13 +28,14 @@
           <strong>Add New Doctor</strong>
         </div>
         <div class="card-body card-block">
-          <form method="post" action="{{ route('admin-add-doctor') }}">
+          <form method="post" action="@isset($doctor) {{ route('admin-edit-doctor') }}  @else {{ route('admin-add-doctor') }} @endisset">
             @csrf
+            @isset($doctor->username) <input type="hidden"  name="id" value="{{ $doctor->id }}"> @endisset
             <div class="form-group">
               <label class=" form-control-label">Username</label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                <input class="form-control" name="username" value="{{ old('username') }}">
+                <input class="form-control" name="username" @isset($doctor->username) value="{{ $doctor->username }}" disabled   @else value="{{ old('username') }}" @endisset >
               </div>
               @error('username')
               <small class="form-text text-danger">{{ $message }}</small>
@@ -44,7 +45,7 @@
               <label class=" form-control-label">Name</label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                <input class="form-control" name="name" value="{{ old('name') }}">
+                <input class="form-control" name="name" @isset($doctor->name) value="{{ $doctor->name }}"  @else value="{{ old('name') }}" @endisset>
               </div>
               @error('name')
               <small class="form-text text-danger">{{ $message }}</small>
@@ -54,7 +55,7 @@
               <label class=" form-control-label">Email</label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                <input class="form-control" type="email" name="email" value="{{ old('email') }}">
+                <input class="form-control" type="email" name="email" @isset($doctor->email) value="{{ $doctor->email }}" @else value="{{ old('email') }}" @endisset>
               </div>
               @error('email')
               <small class="form-text text-danger">{{ $message }}</small>
@@ -64,12 +65,14 @@
               <label class=" form-control-label">Phone Number</label>
               <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                <input class="form-control" value="{{ old('phone_number') }}" name="phone_number" type="number">
+                <input class="form-control" @isset($doctor->phone_number) value="{{ $doctor->phone_number }}" @else value="{{ old('phone_number') }}" @endisset name="phone_number" type="number">
               </div>
               @error('phone_number')
               <small class="form-text text-danger">{{ $message }}</small>
               @enderror
             </div>
+            @isset($doctor->password)
+            @else        
             <div class="form-group">
               <label class=" form-control-label">Password</label>
               <div class="input-group">
@@ -80,6 +83,7 @@
               <small class="form-text text-danger">{{ $message }}</small>
               @enderror
             </div>
+            @endisset
             <div class="form-group">
               <label class=" form-control-label">Gender</label>
               <div class="input-group">
@@ -110,7 +114,7 @@
               @enderror
             </div>
             <div class="text-right">
-              <button class="btn btn-success">Create</button>
+              <button class="btn btn-success">@isset($doctor) Update @else Create @endisset</button>
             </div>
           </form>
         </div>

@@ -62,22 +62,31 @@ class DoctorController extends Controller
             return view('admin.doctors.create', $data);
         }
     }
+    
+    public function view($id)
+    {
+        $data['title'] = 'Edit Doctors';
+        $data['specialities'] = Speciality::orderBy('name', 'ASC')->get();
+        $data['doctor'] = User::where('role', 'Doctor')->where('id', $id)->with('speciality:*')->orderBy('id', 'ASC')->first();
+        return view('admin.doctors.create', $data);
 
-    public function edit(){
+    }
+
+    public function edit(Request $request){
         
         $rules = array(
             'name' => ['required', 'max:255'],
-            'password'  => ['required', 'min:8', 'max:16', 'regex:/[a-z]/', 'regex:/[A-Z]/', 'regex:/[0-9]/', 'regex:/[@$!%*#?&+-]/'],
             'email' => ['required', 'max:255', 'unique:users,email,' . Auth::user()->id],
             'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . Auth::user()->id],
-            'avatar' => 'image|mimes:jpg,jpeg,png|max:5000',
+            'gender' => ['required'],
+            'speciality_id' => ['required'],
         );
         $fieldNames = array(
             'name'     => 'Full Name',
             'email'     => 'Email',
-            'password'     => 'Password',
             'phone_number'   => 'Phone Number',
-            'avatar'   => 'Profile Picture',
+            'gender'     => 'Gender',
+            'speciality_id' => 'Speciality',
         );
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
@@ -85,20 +94,16 @@ class DoctorController extends Controller
             Session::flash('warning', 'Please check the form again!');
             return back()->withErrors($validator)->withInput();
         } else {
-            if ($request->file('avatar')) {
-                $file = $request->file('avatar');
-                $picture = 'STF' . date('dMY') . time() . '.' . $file->getClientOriginalExtension();
-                $pictureDestination = 'uploads/admin_avatar';
-                $file->move($pictureDestination, $picture);
-            }
             $user = User::find(Auth::user()->id);
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone_number = $request->phone_number;
-            $user->avatar = $request->hasFile('avatar') ? $picture : $user->avatar;
+            $user->gender = $request->gender;
+            $user->speciality_id = $request->speciality_id;
             $user->save();
             Session::flash('success', 'Profile Updated Successfully');
             return \back();
         }
     }
+
 }
