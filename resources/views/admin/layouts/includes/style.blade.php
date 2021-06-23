@@ -6,3 +6,7 @@
 <link rel="stylesheet" href="{{ asset('dashboard/vendors/jqvmap/dist/jqvmap.min.css') }}">
 
 <link rel="stylesheet" href="{{ asset('dashboard/assets/css/style.css') }}">
+
+
+<link rel="stylesheet" href="{{ asset('dashboardvendors/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('dashboardvendors/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}">

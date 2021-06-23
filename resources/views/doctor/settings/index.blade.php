@@ -1,5 +1,5 @@
-@extends('staff.layouts.app')
-@section('staff')
+@extends('doctor.layouts.app')
+@section('doctor')
 
 <div class="breadcrumbs">
   <div class="col-sm-4">
@@ -29,7 +29,7 @@
           <strong>Update My Profile</strong>
         </div>
         <div class="card-body card-block">
-          <form method="post" enctype="multipart/form-data" action="{{ route('staff-profile') }}">
+          <form method="post" enctype="multipart/form-data" action="{{ route('doctor-profile') }}">
           @csrf
             <div class="form-group">
               <label class=" form-control-label">Username</label>

@@ -26,6 +26,14 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin');
+    
+    //Profile
+    Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin-profile');
+    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'change'])->name('admin-change-password');
+
+    //Doctor
+    Route::get('/doctors', [\App\Http\Controllers\Admin\DoctorController::class, 'index'])->name('admin-doctors');
+    Route::match(['get', 'post'], '/add-doctor', [\App\Http\Controllers\Admin\DoctorController::class, 'add_new'])->name('admin-add-doctor');
 });
 
 
@@ -35,7 +43,8 @@ Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'doctor']], functio
     Route::get('/', [\App\Http\Controllers\Doctor\DashboardController::class, 'index'])->name('doctor');
 
     //Profile
-
+    Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Doctor\ProfileController::class, 'index'])->name('doctor-profile');
+    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Doctor\ProfileController::class, 'change'])->name('doctor-change-password');
 });
 
 

@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('phone_number');
             $table->string('avatar')->nullable();
             $table->enum('role', ['Admin', 'Staff', 'Doctor']);
+            $table->enum('gender', ['Male', 'Female'])->nullable();
+            $table->string('speciality_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
