@@ -17,7 +17,7 @@ class StaffController extends Controller
         $this->create_user = new User();
     }
 
-    public function index(Request $request)
+    public function index()
     {
         try {
             $data['sn'] = 1;
