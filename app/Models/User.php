@@ -58,10 +58,23 @@ class User extends Authenticatable
         $save->save();
         return $save;
     }
+
+    public function create_staff($data)
+    {
+        $save = new self;
+        $save->name = $data['name'];
+        $save->email = $data['email'];
+        $save->username = $data['username'];
+        $save->phone_number = $data['phone_number'];
+        $save->gender = $data['gender'];
+        $save->role = 'Staff';
+        $save->password = Hash::make($data['password']);
+        $save->save();
+        return $save;
+    }
      
     public function speciality()
     {
         return $this->belongsTo(Speciality::class,'speciality_id')->withDefault();
-        // return $this->belongsTo(Speciality::class, 'speciality_id');
     }
 }

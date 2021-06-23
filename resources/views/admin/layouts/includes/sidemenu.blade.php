@@ -16,7 +16,7 @@
 				</li>
 
 				<h3 class="menu-title">Doctor</h3>
-				<li class="menu-item {{ request()->is('admin/doctors')  ? 'active' : '' }}">
+				<li class="menu-item {{ request()->is('admin/doctors') ||  request()->is('admin/view-doctor-details/*') || request()->is('admin/view-doctor/*') ? 'active' : '' }}">
 					<a href="{{ route('admin-doctors') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Doctors</a>
 				</li>
 				<li class="menu-item {{ request()->is('admin/add-doctor')  ? 'active' : '' }}">
@@ -24,11 +24,11 @@
 				</li>
 
 				<h3 class="menu-title">Staff</h3>
-				<li class="menu-item">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Staffs</a>
+				<li class="menu-item {{ request()->is('admin/staffs') ||  request()->is('admin/view-staff-details/*') || request()->is('admin/view-staff/*') ? 'active' : '' }}">
+					<a href="{{ route('admin-staffs') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Staffs</a>
 				</li>
-				<li class="menu-item">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Staff</a>
+				<li class="menu-item {{ request()->is('admin/add-staff') ? 'active' : '' }}">
+					<a href="{{ route('admin-add-staff') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Staff</a>
 				</li>
 
 				<h3 class="menu-title">Branch</h3>

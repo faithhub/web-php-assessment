@@ -13,7 +13,7 @@
     <div class="page-header float-right">
       <div class="page-title">
         <ol class="breadcrumb text-right">
-          <li class="active">All Doctors</li>
+          <li class="active">All Staffs</li>
         </ol>
       </div>
     </div>
@@ -26,11 +26,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong class="card-title">All Doctors</strong>
+            <strong class="card-title">All Staffs</strong>
           </div>
           <div class="card-body">
             <div class="text-right">
-              <a href="{{ route('admin-add-doctor') }}" class="btn btn-dark mb-2">Add Doctor</a>
+              <a href="{{ route('admin-add-staff') }}" class="btn btn-dark mb-2">Add Staff</a>
             </div>
             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
               <thead>
@@ -38,23 +38,23 @@
                   <th>S/N</th>
                   <th>Username</th>
                   <th>Name</th>
-                  <th>Speciality</th>
+                  <th>Phone Number</th>
                   <th>Added On</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach($doctors as $doctor)
+                @foreach($staffs as $staff)
                 <tr>
                   <td>{{$sn++}}</td>
-                  <td>{{$doctor->username}}</td>
-                  <td>{{$doctor->name}}</td>
-                  <td>{{$doctor->speciality->name}}</td>
-                  <td>{{ date('D, M j, Y \a\t g:ia', strtotime($doctor->created_at))}}</td>
+                  <td>{{$staff->username}}</td>
+                  <td>{{$staff->name}}</td>
+                  <td>{{$staff->phone_number}}</td>
+                  <td>{{ date('D, M j, Y \a\t g:ia', strtotime($staff->created_at))}}</td>
                   <td>
-                    <a href="{{ route('admin-view-doctor-details', $doctor->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
-                    <a href="{{ route('admin-view-doctor', $doctor->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-doctor', $doctor->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    <a href="{{ route('admin-view-staff-details', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
+                    <a href="{{ route('admin-view-staff', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                    <a href="{{ route('admin-delete-staff', $staff->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
                   </td>
                 </tr>
                 @endforeach
