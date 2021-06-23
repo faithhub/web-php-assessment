@@ -106,4 +106,17 @@ class DoctorController extends Controller
         }
     }
 
+    public function delete($id)
+    {
+        try {
+            $user = User::where('role', 'Doctor')->where('id', $id)->first();
+            $user->delete();
+            Session::flash('success', 'Doctor Deleted Successfully');
+            return \back();
+        } catch (\Throwable $th) {
+            Session::flash('error', $th->getMessage());
+            return \back();
+        }
+    }
+
 }

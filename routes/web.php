@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::match(['get', 'post'], '/add-doctor', [\App\Http\Controllers\Admin\DoctorController::class, 'add_new'])->name('admin-add-doctor');
     Route::get('/view-doctor/{id}', [\App\Http\Controllers\Admin\DoctorController::class, 'view'])->name('admin-view-doctor');
     Route::post('/edit-doctor', [\App\Http\Controllers\Admin\DoctorController::class, 'edit'])->name('admin-edit-doctor');
+    Route::delete('/delete-doctor/{id}', [\App\Http\Controllers\Admin\DoctorController::class, 'delete'])->name('admin-delete-doctor');
 });
 
 

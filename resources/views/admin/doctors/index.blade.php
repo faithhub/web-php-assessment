@@ -59,7 +59,7 @@
                   <td>{{ date('D, M j, Y \a\t g:ia', strtotime($doctor->created_at))}}</td>
                   <td>
                     <a href="{{ route('admin-view-doctor', $doctor->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    <a href="{{ route('admin-delete-doctor', $doctor->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
                   </td>
                 </tr>
                 @endforeach
