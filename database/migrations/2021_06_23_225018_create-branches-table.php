@@ -16,8 +16,7 @@ class CreateBranchesTable extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('number_per_patient');
-            $table->integer('current_number_patient');
+            $table->integer('amount_per_patient');
             $table->timestamps();
         });
     }

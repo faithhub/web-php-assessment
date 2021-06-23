@@ -13,7 +13,7 @@
     <div class="page-header float-right">
       <div class="page-title">
         <ol class="breadcrumb text-right">
-          <li class="active">All Staffs</li>
+          <li class="active">All Branches</li>
         </ol>
       </div>
     </div>
@@ -26,19 +26,18 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong class="card-title">All Staffs</strong>
+            <strong class="card-title">All Branches</strong>
           </div>
           <div class="card-body">
             <div class="text-right">
-              <a href="{{ route('admin-add-staff') }}" class="btn btn-dark mb-2">Add Staff</a>
+              <a href="{{ route('admin-add-staff') }}" class="btn btn-dark mb-2">Add Branch</a>
             </div>
             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th>S/N</th>
-                  <th>Username</th>
                   <th>Name</th>
-                  <th>Phone Number</th>
+                  <th>Amount Per Patient</th>
                   <th>Added On</th>
                   <th>Action</th>
                 </tr>

@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/delete-staff/{id}', [\App\Http\Controllers\Admin\StaffController::class, 'delete'])->name('admin-delete-staff');
 
     //BRanch Route
-    Route::get('/branch', [\App\Http\Controllers\Admin\BranchController::class, 'index'])->name('admin-branch');
+    Route::get('/branches', [\App\Http\Controllers\Admin\BranchController::class, 'index'])->name('admin-branches');
 
 });
 
