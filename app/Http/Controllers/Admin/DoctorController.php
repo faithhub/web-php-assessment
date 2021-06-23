@@ -76,8 +76,8 @@ class DoctorController extends Controller
         
         $rules = array(
             'name' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', 'unique:users,email,' . Auth::user()->id],
-            'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . Auth::user()->id],
+            'email' => ['required', 'max:255', 'unique:users,email,' . $request->id],
+            'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
             'gender' => ['required'],
             'speciality_id' => ['required'],
         );
@@ -94,7 +94,7 @@ class DoctorController extends Controller
             Session::flash('warning', 'Please check the form again!');
             return back()->withErrors($validator)->withInput();
         } else {
-            $user = User::find(Auth::user()->id);
+            $user = User::find($request->id);
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone_number = $request->phone_number;
@@ -102,7 +102,7 @@ class DoctorController extends Controller
             $user->speciality_id = $request->speciality_id;
             $user->save();
             Session::flash('success', 'Profile Updated Successfully');
-            return \back();
+            return redirect()->route('admin-doctors');
         }
     }
 
