@@ -98,6 +98,7 @@
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
                 </div>
+                @isset($admin->status)   
                 <div class="form-group">
                   <label class=" form-control-label">Account Status</label>
                   <div class="input-group">
@@ -112,6 +113,7 @@
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
                 </div>
+                @endisset
                 <div class="text-right">
                   <button class="btn btn-success">@isset($admin) Update @else Create @endisset</button>
                 </div>

@@ -29,6 +29,7 @@ class Patient extends Model
       $save->phone_number = $data['phone_number'];
       $save->date_of_birth = $data['date_of_birth'];
       $save->gender = $data['gender'];
+      $save->address = $data['address'];
       $save->save();
       return $save;
     }

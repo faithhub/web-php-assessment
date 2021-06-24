@@ -33,7 +33,7 @@
           <div class="stat-icon dib"><i class="ti-user text-success border-success"></i></div>
           <div class="stat-content dib">
             <div class="stat-text">Total Number of All Patients</div>
-            <div class="stat-digit">1,012</div>
+            <div class="stat-digit">{{$patients}}</div>
           </div>
         </div>
       </div>

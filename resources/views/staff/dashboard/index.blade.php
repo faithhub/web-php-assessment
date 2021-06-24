@@ -26,16 +26,6 @@
     <h1>Welcome {{Auth::user()->username}}</h1>
   </div>
 
-  <div class="col-sm-12">
-    <div class="alert  alert-success alert-dismissible fade show" role="alert">
-      <span class="badge badge-pill badge-success">Success</span> You successfully Logged in.
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-  </div>
-
-
   <div class="col-xl-12 col-lg-12">
     <div class="card">
       <div class="card-body">
@@ -43,7 +33,7 @@
           <div class="stat-icon dib"><i class="ti-user text-success border-success"></i></div>
           <div class="stat-content dib">
             <div class="stat-text">Patients</div>
-            <div class="stat-digit">1,012</div>
+            <div class="stat-digit">{{$patients}}</div>
           </div>
         </div>
       </div>

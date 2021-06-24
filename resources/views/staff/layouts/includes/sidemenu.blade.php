@@ -19,8 +19,8 @@
 				<li class="menu-item {{ request()->is('staff/patients')  ? 'active' : '' }}">
 					<a href="{{ route('patients') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
 				</li>
-				<li class="menu-item">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Patient</a>
+				<li class="menu-item {{ request()->is('staff/add-patient')  ? 'active' : '' }}">
+					<a href="#\{{ route('staff-add-patient') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Patient</a>
 				</li>
 
 				<h3 class="menu-title">Extras</h3><!-- /.menu-title -->	

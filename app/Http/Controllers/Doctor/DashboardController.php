@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Patient;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -17,6 +18,7 @@ class DashboardController extends Controller
     {
         $data['title'] = 'Doctor Dashboard';
         $data['sn'] = 1;
+        $data['patients'] = Patient::all()->count();
         return view('doctor.dashboard.index', $data);
     }
 }

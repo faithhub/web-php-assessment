@@ -112,7 +112,8 @@
                   @error('speciality_id')
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
-                </div>                
+                </div>     
+                @isset($doctor->status)              
                 <div class="form-group">
                   <label class=" form-control-label">Account Status</label>
                   <div class="input-group">
@@ -127,6 +128,7 @@
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
                 </div>
+                @endisset
                 <div class="text-right">
                   <button class="btn btn-success">@isset($doctor) Update @else Create @endisset</button>
                 </div>
