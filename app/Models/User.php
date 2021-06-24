@@ -62,6 +62,7 @@ class User extends Authenticatable
     public function create_staff($data)
     {
         $save = new self;
+        $save->branch_id = $data['branch_id'];
         $save->name = $data['name'];
         $save->email = $data['email'];
         $save->username = $data['username'];
@@ -72,9 +73,14 @@ class User extends Authenticatable
         $save->save();
         return $save;
     }
-     
+
     public function speciality()
     {
-        return $this->belongsTo(Speciality::class,'speciality_id')->withDefault();
+        return $this->belongsTo(Speciality::class, 'speciality_id')->withDefault();
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id')->withDefault();
     }
 }

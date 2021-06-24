@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('avatar')->nullable();
             $table->enum('role', ['Admin', 'Staff', 'Doctor']);
             $table->enum('gender', ['Male', 'Female'])->nullable();
-            $table->string('speciality_id')->nullable();
+            $table->integer('speciality_id')->nullable();
+            $table->integer('branch_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -30,7 +30,22 @@
         <div class="card-body card-block">
               <form method="post" action="@isset($staff) {{ route('admin-edit-staff') }}  @else {{ route('admin-add-staff') }} @endisset">
                 @csrf
-                @isset($staff->username) <input type="hidden" name="id" value="{{ $staff->id }}"> @endisset
+                @isset($staff->username) <input type="hidden" name="id" value="{{ $staff->id }}"> @endisset                
+                <div class="form-group">
+                  <label class=" form-control-label">Branch</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-male"></i></div>
+                    <select class="form-control" name="branch_id">
+                      <option value="">Select Branch</option>
+                      @foreach ($branches as $branch)
+                      <option value="{{$branch->id}}" @isset($doctor) {{ $doctor->branch_id == $branch->id ? "selected" : "" }} @else {{ old('branch') == $branch->id ? "selected" : "" }} @endisset>{{$branch->name}}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                  @error('branch_id')
+                  <small class="form-text text-danger">{{ $message }}</small>
+                  @enderror
+                </div>
                 <div class="form-group">
                   <label class=" form-control-label">Username</label>
                   <div class="input-group">

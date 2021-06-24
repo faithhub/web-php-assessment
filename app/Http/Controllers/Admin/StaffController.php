@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -34,6 +35,7 @@ class StaffController extends Controller
     {
         if ($_POST) {
             $rules = array(
+                'branch_id'    => ['required', 'max:255'],
                 'name'         => ['required', 'max:255'],
                 'username'     => ['required', 'max:255', 'unique:users'],
                 'email'        => ['required', 'max:255', 'unique:users'],
@@ -41,6 +43,7 @@ class StaffController extends Controller
                 'gender'       => ['required'],
             );
             $fieldNames = array(
+                'branch_id'      => 'Branch Name',
                 'name'           => 'Full Name',
                 'username'       => 'Username',
                 'email'          => 'Email',
@@ -65,6 +68,7 @@ class StaffController extends Controller
         } else {
             try {
                 $data['title'] = 'Add New Staff';
+                $data['branches'] = Branch::orderBy('id', 'DESC')->get();
                 return view('admin.staffs.create', $data);
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
@@ -100,12 +104,14 @@ class StaffController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
+            'branch_id'     => ['required', 'max:255'],
             'name'          => ['required', 'max:255'],
             'email'         => ['required', 'max:255', 'unique:users,email,' . $request->id],
             'phone_number'  => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
             'gender'        => ['required'],
         );
         $fieldNames = array(
+            'branch_id'      => 'Branch Name',
             'name'           => 'Full Name',
             'email'          => 'Email',
             'phone_number'   => 'Phone Number',
@@ -119,6 +125,7 @@ class StaffController extends Controller
         } else {
             try {
                 $user                = User::where('role', 'Staff')->where('id', $request->id)->first();
+                $user->branch_id     = $request->branch_id;
                 $user->name          = $request->name;
                 $user->email         = $request->email;
                 $user->phone_number  = $request->phone_number;
