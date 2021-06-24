@@ -23,7 +23,7 @@ class DoctorController extends Controller
         try {
             $data['sn'] = 1;
             $data['title'] = 'Doctors';
-            $data['doctors'] = User::where('role', 'Doctor')->with('speciality:*')->orderBy('id', 'ASC')->get();
+            $data['doctors'] = User::where('role', 'Doctor')->with('speciality:*')->orderBy('id', 'DESC')->get();
             return view('admin.doctors.index', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
@@ -128,7 +128,7 @@ class DoctorController extends Controller
                 $user->gender        = $request->gender;
                 $user->speciality_id = $request->speciality_id;
                 $user->save();
-                Session::flash('success', 'Profile Updated Successfully');
+                Session::flash('success', 'Doctor Updated Successfully');
                 return redirect()->route('admin-doctors');
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());

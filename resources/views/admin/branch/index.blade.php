@@ -30,7 +30,7 @@
           </div>
           <div class="card-body">
             <div class="text-right">
-              <a href="{{ route('admin-add-staff') }}" class="btn btn-dark mb-2">Add Branch</a>
+              <a href="{{ route('admin-add-branch') }}" class="btn btn-dark mb-2">Add Branch</a>
             </div>
             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
               <thead>
@@ -43,17 +43,15 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach($staffs as $staff)
+                @foreach($branches as $branch)
                 <tr>
                   <td>{{$sn++}}</td>
-                  <td>{{$staff->username}}</td>
-                  <td>{{$staff->name}}</td>
-                  <td>{{$staff->phone_number}}</td>
-                  <td>{{ date('D, M j, Y \a\t g:ia', strtotime($staff->created_at))}}</td>
+                  <td>{{$branch->name}}</td>
+                  <td>{{$branch->amount_per_patient}}</td>
+                  <td>{{ date('D, M j, Y \a\t g:ia', strtotime($branch->created_at))}}</td>
                   <td>
-                    <a href="{{ route('admin-view-staff-details', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
-                    <a href="{{ route('admin-view-staff', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-staff', $staff->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    <a href="{{ route('admin-edit-branch', $branch->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                    <a href="{{ route('admin-delete-branch', $branch->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
                   </td>
                 </tr>
                 @endforeach

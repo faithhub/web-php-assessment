@@ -48,8 +48,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/edit-staff', [\App\Http\Controllers\Admin\StaffController::class, 'edit'])->name('admin-edit-staff');
     Route::get('/delete-staff/{id}', [\App\Http\Controllers\Admin\StaffController::class, 'delete'])->name('admin-delete-staff');
 
-    //BRanch Route
+    //Branch Route
     Route::get('/branches', [\App\Http\Controllers\Admin\BranchController::class, 'index'])->name('admin-branches');
+    Route::match(['get', 'post'], '/add-branch', [\App\Http\Controllers\Admin\BranchController::class, 'add_new'])->name('admin-add-branch');
+    Route::get('/edit-branch/{id}', [\App\Http\Controllers\Admin\BranchController::class, 'edit_detail'])->name('admin-edit-branch');
+    Route::post('/edit-branch', [\App\Http\Controllers\Admin\BranchController::class, 'edit'])->name('admin-edit');
+    Route::get('/delete-branch/{id}', [\App\Http\Controllers\Admin\BranchController::class, 'delete'])->name('admin-delete-branch');
 
 });
 

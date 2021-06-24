@@ -16,7 +16,7 @@ class BranchController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('admin');
-        $this->create_user = new User();
+        $this->create_branch = new Branch();
     }
 
     public function index()
@@ -24,7 +24,7 @@ class BranchController extends Controller
         try {
             $data['sn'] = 1;
             $data['title'] = 'Branches';
-            $data['staffs'] = Branch::orderBy('id', 'ASC')->get();
+            $data['branches'] = Branch::orderBy('id', 'DESC')->get();
             return view('admin.branch.index', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
@@ -36,18 +36,12 @@ class BranchController extends Controller
     {
         if ($_POST) {
             $rules = array(
-                'name'         => ['required', 'max:255'],
-                'username'     => ['required', 'max:255', 'unique:users'],
-                'email'        => ['required', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'max:255', 'unique:users'],
-                'gender'       => ['required'],
+                'name'               => ['required', 'max:255', 'unique:users'],
+                'amount_per_patient' => ['required'],
             );
             $fieldNames = array(
-                'name'           => 'Full Name',
-                'username'       => 'Username',
-                'email'          => 'Email',
-                'phone_number'   => 'Phone Number',
-                'gender'         => 'Gender',
+                'name'                => 'Branch Name',
+                'amount_per_patient'  => 'Amount Per Patient',
             );
             $validator = Validator::make($request->all(), $rules);
             $validator->setAttributeNames($fieldNames);
@@ -56,9 +50,9 @@ class BranchController extends Controller
                 return back()->withErrors($validator)->withInput();
             } else {
                 try {
-                    $this->create_user->create_staff($request);
-                    Session::flash('success', 'New Staff Added Successfully');
-                    return \redirect()->route('admin-staffs');
+                    $this->create_branch->create_new($request);
+                    Session::flash('success', 'New Branch Added Successfully');
+                    return \redirect()->route('admin-branches');
                 } catch (\Throwable $th) {
                     Session::flash('error', $th->getMessage());
                     return \back();
@@ -66,8 +60,8 @@ class BranchController extends Controller
             }
         } else {
             try {
-                $data['title'] = 'Add New Staff';
-                return view('admin.staffs.create', $data);
+                $data['title'] = 'Add New Branch';
+                return view('admin.branch.create', $data);
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
                 return \back();
@@ -75,24 +69,12 @@ class BranchController extends Controller
         }
     }
 
-    public function view($id)
+    public function edit_detail($id)
     {
         try {
-            $data['title'] = 'Edit Staff';
-            $data['staff'] = User::where('role', 'Staff')->where('id', $id)->first();
-            return view('admin.staffs.create', $data);
-        } catch (\Throwable $th) {
-            Session::flash('error', $th->getMessage());
-            return \back();
-        }
-    }
-
-    public function view_details($id)
-    {
-        try {
-            $data['staff'] = $staff = User::where('role', 'Staff')->where('id', $id)->first();
-            $data['title'] = $staff->name . ' Details';
-            return view('admin.staffs.view', $data);
+            $data['title'] = 'Edit Branch';
+            $data['branch'] = Branch::find($id);
+            return view('admin.branch.create', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();
@@ -102,16 +84,12 @@ class BranchController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
-            'name'          => ['required', 'max:255'],
-            'email'         => ['required', 'max:255', 'unique:users,email,' . $request->id],
-            'phone_number'  => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
-            'gender'        => ['required'],
+            'name'               => ['required', 'max:255', 'unique:branches,name,'. $request->id],
+            'amount_per_patient' => ['required'],
         );
         $fieldNames = array(
-            'name'           => 'Full Name',
-            'email'          => 'Email',
-            'phone_number'   => 'Phone Number',
-            'gender'         => 'Gender',
+            'name'                => 'Branch Name',
+            'amount_per_patient'  => 'Amount Per Patient',
         );
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
@@ -120,15 +98,12 @@ class BranchController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
             try {
-                $user                = User::where('role', 'Staff')->where('id', $request->id)->first();
-                $user->name          = $request->name;
-                $user->email         = $request->email;
-                $user->phone_number  = $request->phone_number;
-                $user->gender        = $request->gender;
-                $user->speciality_id = $request->speciality_id;
-                $user->save();
-                Session::flash('success', 'Profile Updated Successfully');
-                return redirect()->route('admin-staffs');
+                $branch                     = Branch::find($request->id);
+                $branch->name                = $request->name;
+                $branch->amount_per_patient  = $request->amount_per_patient;
+                $branch->save();
+                Session::flash('success', 'Branch Updated Successfully');
+                return redirect()->route('admin-branches');
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
                 return \back();
@@ -139,10 +114,10 @@ class BranchController extends Controller
     public function delete($id)
     {
         try {
-            $user = User::where('role', 'Staff')->where('id', $id)->first();
-            $user->delete();
-            Session::flash('success', 'Staff Deleted Successfully');
-            return redirect()->route('admin-staffs');
+            $branch = Branch::find($id);
+            $branch->delete();
+            Session::flash('success', 'Branch Deleted Successfully');
+            return redirect()->route('admin-branches');
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();

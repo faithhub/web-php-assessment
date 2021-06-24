@@ -13,7 +13,7 @@
     <div class="page-header float-right">
       <div class="page-title">
         <ol class="breadcrumb text-right">
-          <li class="active"> @isset($staff) Edit Staff @else Add New Staff @endisset</li>
+          <li class="active"> @isset($branch) Edit branch @else Add New branch @endisset</li>
         </ol>
       </div>
     </div>
@@ -25,81 +25,34 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong> @isset($staff) Edit {{$staff->name}} Staff @else Add New Staff @endisset</strong>
+          <strong> @isset($branch) Edit {{$branch->name}} branch @else Add New branch @endisset</strong>
         </div>
         <div class="card-body card-block">
-              <form method="post" action="@isset($staff) {{ route('admin-edit-staff') }}  @else {{ route('admin-add-staff') }} @endisset">
+              <form method="post" action="@isset($branch) {{ route('admin-edit') }}  @else {{ route('admin-add-branch') }} @endisset">
                 @csrf
-                @isset($staff->username) <input type="hidden" name="id" value="{{ $staff->id }}"> @endisset
-                <div class="form-group">
-                  <label class=" form-control-label">Username</label>
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                    <input class="form-control" name="username" @isset($staff->username) value="{{ $staff->username }}" disabled @else value="{{ old('username') }}" @endisset >
-                  </div>
-                  @error('username')
-                  <small class="form-text text-danger">{{ $message }}</small>
-                  @enderror
-                </div>
+                @isset($branch->name) <input type="hidden" name="id" value="{{ $branch->id }}"> @endisset
                 <div class="form-group">
                   <label class=" form-control-label">Name</label>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                    <input class="form-control" name="name" @isset($staff->name) value="{{ $staff->name }}" @else value="{{ old('name') }}" @endisset>
+                    <input class="form-control" name="name" @isset($branch->name) value="{{ $branch->name }}" @else value="{{ old('name') }}" @endisset>
                   </div>
                   @error('name')
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
                 </div>
                 <div class="form-group">
-                  <label class=" form-control-label">Email</label>
+                  <label class=" form-control-label">Amount Per Patient</label>
                   <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                    <input class="form-control" type="email" name="email" @isset($staff->email) value="{{ $staff->email }}" @else value="{{ old('email') }}" @endisset>
+                    <div class="input-group-addon"><i class="fa fa-edit"></i></div>
+                    <input class="form-control" name="amount_per_patient" type="number" @isset($branch->amount_per_patient) value="{{ $branch->amount_per_patient }}" @else value="{{ old('amount_per_patient') }}" @endisset>
                   </div>
-                  @error('email')
-                  <small class="form-text text-danger">{{ $message }}</small>
-                  @enderror
-                </div>
-                <div class="form-group">
-                  <label class=" form-control-label">Phone Number</label>
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                    <input class="form-control" @isset($staff->phone_number) value="{{ $staff->phone_number }}" @else value="{{ old('phone_number') }}" @endisset name="phone_number" type="number">
-                  </div>
-                  @error('phone_number')
-                  <small class="form-text text-danger">{{ $message }}</small>
-                  @enderror
-                </div>
-                @isset($staff->password)
-                @else
-                <div class="form-group">
-                  <label class=" form-control-label">Password</label>
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-lock"></i></div>
-                    <input class="form-control" name="password" type="password">
-                  </div>
-                  @error('password')
-                  <small class="form-text text-danger">{{ $message }}</small>
-                  @enderror
-                </div>
-                @endisset
-                <div class="form-group">
-                  <label class=" form-control-label">Gender</label>
-                  <div class="input-group">
-                    <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                    <select class="form-control" name="gender">
-                      <option value="">Select Gender</option>
-                      <option value="Male" @isset($staff) {{ $staff->gender == "Male" ? "selected" : "" }} @else {{ old("gender") == "Male" ? "selected" : "" }} @endisset>Male</option>
-                      <option value="Female" @isset($staff) {{ $staff->gender == "Female" ? "selected" : "" }} @else {{ old("gender") == "Female" ? "selected" : "" }} @endisset>Female</option>
-                    </select>
-                  </div>
-                  @error('gender')
+                  @error('amount_per_patient')
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
                 </div>
                 <div class="text-right">
-                  <button class="btn btn-success">@isset($staff) Update @else Create @endisset</button>
+                  <button class="btn btn-success">@isset($branch) Update @else Create @endisset</button>
                 </div>
               </form>
         </div>

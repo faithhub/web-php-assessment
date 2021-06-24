@@ -22,7 +22,7 @@ class StaffController extends Controller
         try {
             $data['sn'] = 1;
             $data['title'] = 'Staffs';
-            $data['staffs'] = User::where('role', 'Staff')->orderBy('id', 'ASC')->get();
+            $data['staffs'] = User::where('role', 'Staff')->orderBy('id', 'DESC')->get();
             return view('admin.staffs.index', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
@@ -125,7 +125,7 @@ class StaffController extends Controller
                 $user->gender        = $request->gender;
                 $user->speciality_id = $request->speciality_id;
                 $user->save();
-                Session::flash('success', 'Profile Updated Successfully');
+                Session::flash('success', 'Staff Updated Successfully');
                 return redirect()->route('admin-staffs');
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
