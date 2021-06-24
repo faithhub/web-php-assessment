@@ -71,6 +71,9 @@ Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'doctor']], functio
     //Profile
     Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Doctor\ProfileController::class, 'index'])->name('doctor-profile');
     Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Doctor\ProfileController::class, 'change'])->name('doctor-change-password');
+
+    //Patient
+    Route::match(['get', 'post'], '/patients', [\App\Http\Controllers\Doctor\PatientController::class, 'index'])->name('doctor-patients');
 });
 
 

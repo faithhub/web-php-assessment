@@ -11,18 +11,19 @@
 
 		<div id="main-menu" class="main-menu collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class="{{ request()->is('admin')  ? 'active' : '' }}">
+				<li class="{{ request()->is('doctor')  ? 'active' : '' }}">
 					<a href="{{ route('doctor') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
 				</li>
 
 				<h3 class="menu-title">Patient</h3>
-				<li class="menu-item">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
+				<li class="menu-item {{ request()->is('doctor/patients')  ? 'active' : '' }}">
+					<a href="{{ route('doctor-patients') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
 				</li>
-				<li class="menu-item">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-line-chart"></i>Patient Graph</a>
+				<li class="menu-item {{ request()->is('admin')  ? 'active' : '' }}">
+					<a href="{{ route('doctor') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-line-chart"></i>Patient Graph</a>
 				</li>
 
+				
 				<h3 class="menu-title">Extras</h3><!-- /.menu-title -->	
 				<li class="menu-item {{ request()->is('doctor/profile')  ? 'active' : '' }}">
 					<a href="{{ route('doctor-profile') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>My Profile</a>
