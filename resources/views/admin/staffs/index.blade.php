@@ -62,11 +62,11 @@
                     <a href="{{ route('admin-view-staff-details', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
                     <a href="{{ route('admin-view-staff', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
                     <a href="{{ route('admin-delete-staff', $staff->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                    @else
-                    <a href="{{ route('admin-view-staff-details', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
-                    <button disabled class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</button>
-                    <button disabled class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                    @endif
+                      @else
+                      <a href="{{ route('admin-view-staff-details', $staff->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
+                      <button disabled class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</button>
+                      <button disabled class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                      @endif
                   </td>
                 </tr>
                 @endforeach

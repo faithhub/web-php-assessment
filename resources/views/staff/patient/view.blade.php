@@ -1,5 +1,5 @@
-@extends('admin.layouts.app')
-@section('admin')
+@extends('staff.layouts.app')
+@section('staff')
 <div class="breadcrumbs">
   <div class="col-sm-4">
     <div class="page-header float-left">
@@ -12,7 +12,7 @@
     <div class="page-header float-right">
       <div class="page-title">
         <ol class="breadcrumb text-right">
-          <li class="active">Doctors</li>
+          <li class="active">Patient</li>
         </ol>
       </div>
     </div>
@@ -24,7 +24,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong class="card-title">{{$doctor->name}} Details</strong>
+            <strong class="card-title">{{$patient->name}} Details</strong>
           </div>
           <div class="card-body">
             <div class="text-right">
@@ -37,37 +37,37 @@
                   <table class="table table-hover table-striped table-align-middle mb-0">
                     <thead>
                       <tr>
-                        <th>Username:</th>
-                        <th>{{$doctor->username}}</th>
-                      </tr>
-                      <tr>
                         <th>Name:</th>
-                        <th>{{$doctor->name}}</th>
-                      </tr>
-                      <tr>
-                        <th>Email:</th>
-                        <th>{{$doctor->email}}</th>
+                        <th>{{$patient->name}}</th>
                       </tr>
                       <tr>
                         <th>Phone Number:</th>
-                        <th>{{$doctor->phone_number}}</th>
+                        <th>{{$patient->phone_number}}</th>
                       </tr>
                       <tr>
                         <th>Gender:</th>
-                        <th>{{$doctor->gender}}</th>
+                        <th>{{$patient->gender}}</th>
                       </tr>
                       <tr>
-                        <th>Speciality:</th>
-                        <th>{{$doctor->speciality->name}}</th>
+                        <th>Age:</th>
+                        <th>{{Carbon\Carbon::parse($patient->date_of_birth)->diffInYears()}} years</th>
+                      </tr>
+                      <tr>
+                        <th>Address:</th>
+                        <th>{{$patient->address}}</th>
+                      </tr>
+                      <tr>
+                        <th>Created On:</th>
+                        <th>{{ date('D, M j, Y \a\t g:ia', strtotime($patient->created_at))}}</th>
                       </tr>
                     </thead>
                   </table>
                 </div>
               </div>
-                           
+
               <div class="text-right m-2">
-                    <a href="{{ route('admin-view-doctor', $doctor->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-doctor', $doctor->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                <a href="{{ route('staff-edit-patient', $patient->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="{{ route('staff-delete-patient', $patient->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
               </div>
             </div>
           </div>

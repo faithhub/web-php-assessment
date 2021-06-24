@@ -49,16 +49,12 @@
                   <td>{{$sn++}}</td>
                   <td>{{$patient->name}}</td>
                   <td>{{$patient->phone_number}}</td>
-<<<<<<< HEAD:resources/views/staff/patient/index.blade.php
                   <td>{{ Carbon\Carbon::parse($patient->date_of_birth)->diffInYears() }} years</td>
-=======
-                  <td>{{ date('D, M j, Y', strtotime($patient->date_of_birth))}}</td>
->>>>>>> 0bfaffa2ed9939fc1ef06779b9f071feafc44edf:resources/views/staff/dashboard/patient/index.blade.php
                   <td>{{ date('D, M j, Y \a\t g:ia', strtotime($patient->created_at))}}</td>
                   <td>
-                    <a href="{{ route('admin-view-doctor-details', $patient->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
-                    <a href="{{ route('admin-view-doctor', $patient->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-doctor', $patient->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    <a href="{{ route('staff-view-patient-details', $patient->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
+                    <a href="{{ route('staff-edit-patient', $patient->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                    <a href="{{ route('staff-delete-patient', $patient->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
                   </td>
                 </tr>
                 @endforeach

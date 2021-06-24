@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 class BranchController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -31,7 +31,7 @@ class BranchController extends Controller
             return \back();
         }
     }
-    
+
     public function add_new(Request $request)
     {
         if ($_POST) {
@@ -84,7 +84,7 @@ class BranchController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
-            'name'               => ['required', 'max:255', 'unique:branches,name,'. $request->id],
+            'name'               => ['required', 'max:255', 'unique:branches,name,' . $request->id],
             'amount_per_patient' => ['required'],
         );
         $fieldNames = array(
@@ -98,9 +98,10 @@ class BranchController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
             try {
-                $branch                     = Branch::find($request->id);
+                $branch                      = Branch::find($request->id);
                 $branch->name                = $request->name;
                 $branch->amount_per_patient  = $request->amount_per_patient;
+                $branch->status              = $request->status;
                 $branch->save();
                 Session::flash('success', 'Branch Updated Successfully');
                 return redirect()->route('admin-branches');
@@ -117,7 +118,7 @@ class BranchController extends Controller
             $branch         = Branch::find($id);
             $branch->status = 'Inactive';
             $branch->save();
-            Session::flash('success', 'Branch Deleted Successfully');
+            Session::flash('success', 'Branch Status Change to Inactive Successfully');
             return redirect()->route('admin-branches');
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());

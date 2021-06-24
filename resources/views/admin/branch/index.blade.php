@@ -60,11 +60,11 @@
                   <td>
                     @if($branch->status == 'Active')
                     <a href="{{ route('admin-edit-branch', $branch->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-branch', $branch->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                    @else
-                    <button disabled class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</button>
-                    <button disabled class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                    @endif
+                    <a href="{{ route('admin-delete-branch', $branch->id) }}" onclick="return confirm('Are you sure you want to make this Branch inactive?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Inactive</button>
+                      @else
+                      <a href="{{ route('admin-edit-branch', $branch->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                      <button disabled class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Inactive</button>
+                      @endif
                   </td>
                 </tr>
                 @endforeach

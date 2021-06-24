@@ -23,10 +23,10 @@ Auth::routes();
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin');
-    
+
     //Admin Profile Route
     Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin-profile');
-    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'change'])->name('admin-change-password');    
+    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'change'])->name('admin-change-password');
 
     //Admin Routes
     Route::get('/admins', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin-admins');
@@ -44,7 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/edit-doctor', [\App\Http\Controllers\Admin\DoctorController::class, 'edit'])->name('admin-edit-doctor');
     Route::get('/delete-doctor/{id}', [\App\Http\Controllers\Admin\DoctorController::class, 'delete'])->name('admin-delete-doctor');
 
-    
+
     //Staff Routes
     Route::get('/staffs', [\App\Http\Controllers\Admin\StaffController::class, 'index'])->name('admin-staffs');
     Route::match(['get', 'post'], '/add-staff', [\App\Http\Controllers\Admin\StaffController::class, 'add_new'])->name('admin-add-staff');
@@ -59,7 +59,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/edit-branch/{id}', [\App\Http\Controllers\Admin\BranchController::class, 'edit_detail'])->name('admin-edit-branch');
     Route::post('/edit-branch', [\App\Http\Controllers\Admin\BranchController::class, 'edit'])->name('admin-edit');
     Route::get('/delete-branch/{id}', [\App\Http\Controllers\Admin\BranchController::class, 'delete'])->name('admin-delete-branch');
-
 });
 
 
@@ -81,13 +80,15 @@ Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'doctor']], functio
 Route::group(['prefix' => 'staff', 'middleware' => ['auth', 'staff']], function () {
     //Dashboard
     Route::get('/', [\App\Http\Controllers\Staff\DashboardController::class, 'index'])->name('staff');
-    
+
     //Profile
     Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Staff\ProfileController::class, 'index'])->name('staff-profile');
     Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Staff\ProfileController::class, 'change'])->name('staff-change-password');
 
     //Patient
     Route::match(['get', 'post'], '/patients', [\App\Http\Controllers\Staff\PatientController::class, 'index'])->name('patients');
-    Route::match(['get', 'post'], '/patient/{id}', [\App\Http\Controllers\Staff\PatientController::class, 'view'])->name('staff-view-patient-details');
+    Route::get('/patient/{id}', [\App\Http\Controllers\Staff\PatientController::class, 'view_details'])->name('staff-view-patient-details');
     Route::match(['get', 'post'], '/add-patient', [\App\Http\Controllers\Staff\PatientController::class, 'add_new'])->name('staff-add-patient');
+    Route::get('/edit-patient/{id}', [\App\Http\Controllers\Staff\PatientController::class, 'view'])->name('staff-edit-patient');
+    Route::get('/delete-patient/{id}', [\App\Http\Controllers\Staff\PatientController::class, 'delete'])->name('staff-delete-patient');
 });

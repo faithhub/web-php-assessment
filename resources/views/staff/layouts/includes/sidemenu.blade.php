@@ -16,20 +16,20 @@
 				</li>
 
 				<h3 class="menu-title">Patient</h3>
-				<li class="menu-item {{ request()->is('staff/patients')  ? 'active' : '' }}">
+				<li class="menu-item {{ request()->is('staff/patients') || request()->is('staff/edit-patient/*') || request()->is('staff/patient/*')  ? 'active' : '' }}">
 					<a href="{{ route('patients') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
 				</li>
 				<li class="menu-item {{ request()->is('staff/add-patient')  ? 'active' : '' }}">
 					<a href="#\{{ route('staff-add-patient') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Patient</a>
 				</li>
 
-				<h3 class="menu-title">Extras</h3><!-- /.menu-title -->	
+				<h3 class="menu-title">Extras</h3><!-- /.menu-title -->
 				<li class="menu-item {{ request()->is('staff/profile')  ? 'active' : '' }}">
 					<a href="{{ route('staff-profile') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>My Profile</a>
-				</li>			
+				</li>
 				<li class="menu-item {{ request()->is('staff/change-password')  ? 'active' : '' }}">
 					<a href="{{ route('staff-change-password') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-lock"></i>Change Password</a>
-				</li>	
+				</li>
 				<li class="menu-item">
 					<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-power-off"></i>Logout</a>
 				</li>

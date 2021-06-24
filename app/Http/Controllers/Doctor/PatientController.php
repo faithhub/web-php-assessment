@@ -21,5 +21,4 @@ class PatientController extends Controller
         $data['patients'] = Patient::orderBy('id', 'DESC')->get();
         return view('doctor.patient.index', $data);
     }
-
 }

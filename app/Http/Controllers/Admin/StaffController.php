@@ -30,7 +30,7 @@ class StaffController extends Controller
             return \back();
         }
     }
-    
+
     public function add_new(Request $request)
     {
         if ($_POST) {
@@ -68,7 +68,7 @@ class StaffController extends Controller
         } else {
             try {
                 $data['title'] = 'Add New Staff';
-                $data['branches'] = Branch::orderBy('id', 'DESC')->get();
+                $data['branches'] = Branch::where('status', 'Active')->orderBy('id', 'DESC')->get();
                 return view('admin.staffs.create', $data);
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
@@ -82,7 +82,7 @@ class StaffController extends Controller
         try {
             $data['title'] = 'Edit Staff';
             $data['staff'] = User::where('role', 'Staff')->where('id', $id)->first();
-            $data['branches'] = Branch::orderBy('id', 'DESC')->get();
+            $data['branches'] = Branch::where('status', 'Active')->orderBy('id', 'DESC')->get();
             return view('admin.staffs.create', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());

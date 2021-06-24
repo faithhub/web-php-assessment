@@ -27,57 +27,105 @@ class PatientController extends Controller
         return view('staff.patient.index', $data);
     }
 
-<<<<<<< HEAD
+    public function view($id)
+    {
+        try {
+            $data['title'] = 'Edit Staff';
+            $data['patient'] = Patient::find($id);
+            return view('staff.patient.create', $data);
+        } catch (\Throwable $th) {
+            Session::flash('error', $th->getMessage());
+            return \back();
+        }
+    }
+
+    public function view_details($id)
+    {
+        try {
+            $data['patient'] = $patient = Patient::find($id);
+            $data['title'] = $patient->name . ' Details';
+            return view('staff.patient.view', $data);
+        } catch (\Throwable $th) {
+            Session::flash('error', $th->getMessage());
+            return \back();
+        }
+    }
+
     public function add_new(Request $request)
     {
         if ($_POST) {
-            $rules = array(
-                'name'          => ['required', 'max:255'],
-                'phone_number'  => ['required', 'max:255', 'unique:patients'],
-                'date_of_birth' => ['required'],
-                'address'       => ['required'],
-                'gender'        => ['required']
-            );
+            if ($request->id) {
+                $rules = array(
+                    'name'          => ['required', 'max:255'],
+                    'phone_number'  => ['required', 'max:255', 'unique:patients,phone_number,' . $request->id],
+                    'date_of_birth' => ['required'],
+                    'address'       => ['required'],
+                    'gender'        => ['required']
+                );
 
-            $fieldNames = array(
-                'name'           => 'Full Name',
-                'phone_number'   => 'Phone Number',
-                'date_of_birth'  => 'Date of Birth',
-                'Address'        => 'Address',
-                'gender'         => 'Gender'
-            );
-=======
-  public function add_new(Request $request)
-  {
-    if ($_POST) {
-      $rules = array(
-          'name'          => ['required', 'max:255'],
-          'phone_number'  => ['required', 'max:255', 'unique:patients'],
-          'address'  => ['required', 'max:255',],
-          'date_of_birth'  => ['required'],
-          'gender'        => ['required']
-      );
+                $fieldNames = array(
+                    'name'           => 'Full Name',
+                    'phone_number'   => 'Phone Number',
+                    'date_of_birth'  => 'Date of Birth',
+                    'address'        => 'Address',
+                    'gender'         => 'Gender'
+                );
 
-      $fieldNames = array(
-          'name'           => 'Full Name',
-          'phone_number'   => 'Phone Number',
-          'address'  => 'Address',
-          'date_of_birth'   => 'Date of Birth',
-          'gender'         => 'Gender'
-      );
->>>>>>> 0bfaffa2ed9939fc1ef06779b9f071feafc44edf
+                $validator = Validator::make($request->all(), $rules);
+                $validator->setAttributeNames($fieldNames);
 
-            $validator = Validator::make($request->all(), $rules);
-            $validator->setAttributeNames($fieldNames);
-
-<<<<<<< HEAD
-            if ($validator->fails()) {
-                Session::flash('warning', 'Please check the form again!');
-                return back()->withErrors($validator)->withInput();
+                if ($validator->fails()) {
+                    Session::flash('warning', 'Please check the form again!');
+                    return back()->withErrors($validator)->withInput();
+                } else {
+                    try {
+                        $patient                = Patient::find($request->id);
+                        $patient->name          = $request->name;
+                        $patient->phone_number  = $request->phone_number;
+                        $patient->date_of_birth = $request->date_of_birth;
+                        $patient->address       = $request->address;
+                        $patient->gender        = $request->gender;
+                        $patient->save();
+                        Session::flash('success', 'New Patient Added Successfully');
+                        return \redirect()->route('patients');
+                    } catch (\Throwable $th) {
+                        Session::flash('error', $th->getMessage());
+                        return \back();
+                    }
+                }
             } else {
-                $this->patient->create($request);
-                Session::flash('success', 'New Patient Added Successfully');
-                return \redirect()->route('patients');
+                $rules = array(
+                    'name'          => ['required', 'max:255'],
+                    'phone_number'  => ['required', 'max:255', 'unique:patients'],
+                    'date_of_birth' => ['required'],
+                    'address'       => ['required'],
+                    'gender'        => ['required']
+                );
+
+                $fieldNames = array(
+                    'name'           => 'Full Name',
+                    'phone_number'   => 'Phone Number',
+                    'date_of_birth'  => 'Date of Birth',
+                    'Address'        => 'Address',
+                    'gender'         => 'Gender'
+                );
+
+                $validator = Validator::make($request->all(), $rules);
+                $validator->setAttributeNames($fieldNames);
+
+                if ($validator->fails()) {
+                    Session::flash('warning', 'Please check the form again!');
+                    return back()->withErrors($validator)->withInput();
+                } else {
+                    try {
+                        $this->patient->create($request);
+                        Session::flash('success', 'New Patient Added Successfully');
+                        return \redirect()->route('patients');
+                    } catch (\Throwable $th) {
+                        Session::flash('error', $th->getMessage());
+                        return \back();
+                    }
+                }
             }
         } else {
             try {
@@ -89,24 +137,17 @@ class PatientController extends Controller
             }
         }
     }
-=======
-      if ($validator->fails()) {
-          Session::flash('warning', 'Please check the form again!');
-          return back()->withErrors($validator)->withInput();
-      } else {
-          $this->patient->create($request);
-          Session::flash('success', 'New Patient Added Successfully');
-          return \redirect()->route('patients');
-      }
-  } else {
-      try {
-          $data['title'] = 'Add New Patient';
-          return view('staff.dashboard.patient.create', $data);
-      } catch (\Throwable $th) {
-          Session::flash('error', $th->getMessage());
-          return \back();
-      }
-  }
-  }
->>>>>>> 0bfaffa2ed9939fc1ef06779b9f071feafc44edf
+
+    public function delete($id)
+    {
+        try {
+            $patient = Patient::find($id);
+            $patient->delete();
+            Session::flash('success', 'Patient Deleted Successfully');
+            return redirect()->route('patients');
+        } catch (\Throwable $th) {
+            Session::flash('error', $th->getMessage());
+            return \back();
+        }
+    }
 }
