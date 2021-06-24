@@ -19,18 +19,18 @@
 				<li class="menu-item {{ request()->is('doctor/patients')  ? 'active' : '' }}">
 					<a href="{{ route('doctor-patients') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
 				</li>
-				<li class="menu-item {{ request()->is('admin')  ? 'active' : '' }}">
-					<a href="{{ route('doctor') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-line-chart"></i>Patient Graph</a>
+				<li class="menu-item {{ request()->is('doctor/patient-graph')  ? 'active' : '' }}">
+					<a href="{{ route('doctor-patient-graph') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-line-chart"></i>Patient Graph</a>
 				</li>
 
-				
-				<h3 class="menu-title">Extras</h3><!-- /.menu-title -->	
+
+				<h3 class="menu-title">Extras</h3><!-- /.menu-title -->
 				<li class="menu-item {{ request()->is('doctor/profile')  ? 'active' : '' }}">
 					<a href="{{ route('doctor-profile') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>My Profile</a>
-				</li>			
+				</li>
 				<li class="menu-item {{ request()->is('doctor/change-password')  ? 'active' : '' }}">
 					<a href="{{ route('doctor-change-password') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-lock"></i>Change Password</a>
-				</li>	
+				</li>
 				<li class="menu-item">
 					<a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-power-off"></i>Logout</a>
 				</li>

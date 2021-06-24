@@ -1,6 +1,5 @@
 @extends('doctor.layouts.app')
 @section('doctor')
-
 <div class="breadcrumbs">
   <div class="col-sm-4">
     <div class="page-header float-left">
@@ -13,7 +12,7 @@
     <div class="page-header float-right">
       <div class="page-title">
         <ol class="breadcrumb text-right">
-          <li class="active">All Branches</li>
+          <li class="active">All Patient</li>
         </ol>
       </div>
     </div>
@@ -26,55 +25,113 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong class="card-title">All Branches</strong>
+            <strong class="card-title">All Patient</strong>
           </div>
           <div class="card-body">
-            <div class="text-right">
-              <a href="{{ route('admin-add-branch') }}" class="btn btn-dark mb-2">Add Branch</a>
+
+            <div class="col-lg-8">
+              <h4 class="mb-3">Patient's Graph </h4>
+              <canvas id="myChart"></canvas>
             </div>
-            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
-              <thead>
-                <tr>
-                  <th>S/N</th>
-                  <th>Name</th>
-                  <th>Amount Per Patient</th>
-                  <th>Status</th>
-                  <th>Added On</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($branches as $branch)
-                <tr>
-                  <td>{{$sn++}}</td>
-                  <td>{{$branch->name}}</td>
-                  <td>{{$branch->amount_per_patient}}</td>
-                  <td>
-                    @if($branch->status == 'Active')
-                    <span class="badge badge-success">{{ $branch->status}}</span>
-                    @else
-                    <span class="badge badge-danger">{{ $branch->status}}</span>
-                    @endif
-                  </td>
-                  <td>{{ date('D, M j, Y \a\t g:ia', strtotime($branch->created_at))}}</td>
-                  <td>
-                    @if($branch->status == 'Active')
-                    <a href="{{ route('admin-edit-branch', $branch->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-branch', $branch->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                    @else
-                    <button disabled class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</button>
-                    <button disabled class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
-                    @endif
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
     </div>
+    <!-- .animated -->
   </div>
-  <!-- .animated -->
-</div>
-@endsection
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+
+  <script>
+    var patientDetails;
+    $.ajax({
+      type: "GET",
+      url: "{{ route('doctor-patient-graph-chart') }}",
+      cache: false,
+      success: function(data) {
+        patientDetails = data;
+      },
+      async: false
+    });
+    var patientNumber = patientDetails.map((data) => data.views);
+    var patientDate = patientDetails.map((data) => data.date);
+    var ctx = document.getElementById("myChart");
+    ctx.height = 150;
+    var ticks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90];
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: patientDate,
+        type: 'line',
+        defaultFontFamily: 'Montserrat',
+        datasets: [{
+          data: patientNumber,
+          label: "Patient",
+          backgroundColor: 'rgba(0,103,255,.15)',
+          borderColor: 'rgba(0,103,255,0.5)',
+          borderWidth: 3.5,
+          pointStyle: 'circle',
+          pointRadius: 5,
+          pointBorderColor: 'transparent',
+          pointBackgroundColor: 'rgba(0,103,255,0.5)',
+        }, ]
+      },
+      options: {
+        responsive: true,
+        tooltips: {
+          mode: 'index',
+          titleFontSize: 12,
+          titleFontColor: '#000',
+          bodyFontColor: '#000',
+          backgroundColor: '#fff',
+          titleFontFamily: 'Montserrat',
+          bodyFontFamily: 'Montserrat',
+          cornerRadius: 3,
+          intersect: false,
+        },
+        legend: {
+          display: false,
+          position: 'top',
+          labels: {
+            usePointStyle: true,
+            fontFamily: 'Montserrat',
+          },
+
+
+        },
+        scales: {
+          xAxes: [{
+            display: true,
+            gridLines: {
+              display: true,
+              drawBorder: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Date'
+            }
+          }],
+          yAxes: [{
+            display: true,
+            beginAtZero: true,
+            ticks: {
+              min: 1,
+              beginAtZero: true,
+            },
+
+            gridLines: {
+              display: true,
+              drawBorder: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'No. of Patients'
+            }
+          }]
+        },
+        title: {
+          display: false,
+        }
+      }
+    });
+</script>
+  @endsection

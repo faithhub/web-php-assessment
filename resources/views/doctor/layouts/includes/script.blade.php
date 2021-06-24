@@ -20,6 +20,9 @@
 <script src="{{ asset('dashboard/vendors/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 <script src="{{ asset('dashboard/assets/js/init-scripts/data-table/datatables-init.js') }}"></script>
 
+<script src="{{ asset('dashboard/vendors/chart.js/dist/Chart.bundle.min.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/init-scripts/chart-js/chartjs-init.js') }}"></script>
+
 <script>
   (function($) {
     "use strict";

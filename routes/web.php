@@ -73,6 +73,8 @@ Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'doctor']], functio
 
     //Patient
     Route::match(['get', 'post'], '/patients', [\App\Http\Controllers\Doctor\PatientController::class, 'index'])->name('doctor-patients');
+    Route::get('/patient-graph', [\App\Http\Controllers\Doctor\PatientController::class, 'graph'])->name('doctor-patient-graph');
+    Route::get('/patient-graph-chart', [\App\Http\Controllers\Doctor\PatientController::class, 'chart'])->name('doctor-patient-graph-chart');
 });
 
 
