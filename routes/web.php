@@ -85,4 +85,9 @@ Route::group(['prefix' => 'staff', 'middleware' => ['auth', 'staff']], function 
     //Profile
     Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Staff\ProfileController::class, 'index'])->name('staff-profile');
     Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Staff\ProfileController::class, 'change'])->name('staff-change-password');
+
+    //Patient
+    Route::match(['get', 'post'], '/patients', [\App\Http\Controllers\Staff\PatientController::class, 'index'])->name('patients');
+    Route::match(['get', 'post'], '/patient/{id}', [\App\Http\Controllers\Staff\PatientController::class, 'view'])->name('staff-view-patient-details');
+    Route::match(['get', 'post'], '/add-patient', [\App\Http\Controllers\Staff\PatientController::class, 'add_new'])->name('staff-add-patient');
 });
