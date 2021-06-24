@@ -28,7 +28,7 @@
           </div>
           <div class="card-body">
             <div class="text-right">
-              <a href="{{ route('admin-doctors') }}" class="btn btn-dark mb-2">Back</a>
+              <a href="{{ route('admin-admins') }}" class="btn btn-dark mb-2">Back</a>
             </div>
 
             <div class="col-md-12">
