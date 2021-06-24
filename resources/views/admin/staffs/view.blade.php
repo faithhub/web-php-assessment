@@ -41,6 +41,10 @@
                         <th>{{$staff->branch->name}}</th>
                       </tr>
                       <tr>
+                        <th>Role:</th>
+                        <th>{{$staff->role}}</th>
+                      </tr>
+                      <tr>
                         <th>Username:</th>
                         <th>{{$staff->username}}</th>
                       </tr>
@@ -61,6 +65,16 @@
                         <th>{{$staff->gender}}</th>
                       </tr>
                       <tr>
+                        <th>Account Status:</th>
+                        <th>
+                          @if($staff->status == 'Active')
+                          <span class="badge badge-success">{{ $staff->status}}</span>
+                          @else
+                          <span class="badge badge-danger">{{ $staff->status}}</span>
+                          @endif
+                        </th>
+                      </tr>
+                      <tr>
                         <th>Created On:</th>
                         <th>{{ date('D, M j, Y \a\t g:ia', strtotime($staff->created_at))}}</th>
                       </tr>
@@ -68,10 +82,15 @@
                   </table>
                 </div>
               </div>
-                           
+
               <div class="text-right m-2">
-                    <a href="{{ route('admin-view-staff', $staff->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-staff', $staff->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                @if($staff->status == 'Active' || $staff->status == 'Inactive')
+                <a href="{{ route('admin-view-staff', $staff->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="{{ route('admin-delete-staff', $staff->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                @else
+                <button disabled class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</button>
+                <button disabled class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                @endif
               </div>
             </div>
           </div>

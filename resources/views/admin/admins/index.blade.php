@@ -38,6 +38,7 @@
                   <th>S/N</th>
                   <th>Username</th>
                   <th>Name</th>
+                  <th>Account status</th>
                   <th>Added On</th>
                   <th>Action</th>
                 </tr>
@@ -48,11 +49,18 @@
                   <td>{{$sn++}}</td>
                   <td>{{$admin->username}}</td>
                   <td>{{$admin->name}}</td>
+                  <td>
+                    @if($admin->status == 'Active')
+                    <span class="badge badge-success">{{ $admin->status}}</span>
+                    @else
+                    <span class="badge badge-danger">{{ $admin->status}}</span>
+                    @endif
+                  </td>
                   <td>{{ date('D, M j, Y \a\t g:ia', strtotime($admin->created_at))}}</td>
                   <td>
-                    <a href="{{ route('admin-view-doctor-details', $admin->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
-                    <a href="{{ route('admin-view-doctor', $admin->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-doctor', $admin->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
+                    <a href="{{ route('admin-view-admin-details', $admin->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
+                    <a href="{{ route('admin-view-admin', $admin->id) }}" class="btn btn-sm btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                    <a href="{{ route('admin-delete-admin', $admin->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</button>
                   </td>
                 </tr>
                 @endforeach

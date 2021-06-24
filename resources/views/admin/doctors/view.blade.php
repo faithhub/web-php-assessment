@@ -37,6 +37,10 @@
                   <table class="table table-hover table-striped table-align-middle mb-0">
                     <thead>
                       <tr>
+                        <th>Role:</th>
+                        <th>{{$doctor->role}}</th>
+                      </tr>
+                      <tr>
                         <th>Username:</th>
                         <th>{{$doctor->username}}</th>
                       </tr>
@@ -59,6 +63,20 @@
                       <tr>
                         <th>Speciality:</th>
                         <th>{{$doctor->speciality->name}}</th>
+                      </tr>
+                      <tr>
+                        <th>Account Status:</th>
+                        <th>
+                          @if($doctor->status == 'Active')
+                          <span class="badge badge-success">{{ $doctor->status}}</span>
+                          @else
+                          <span class="badge badge-danger">{{ $doctor->status}}</span>
+                          @endif
+                        </th>
+                      </tr>
+                      <tr>
+                        <th>Created On:</th>
+                        <th>{{ date('D, M j, Y \a\t g:ia', strtotime($doctor->created_at))}}</th>
                       </tr>
                     </thead>
                   </table>

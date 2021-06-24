@@ -99,11 +99,12 @@ class DoctorController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', 'unique:users,email,' . $request->id],
-            'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
-            'gender' => ['required'],
-            'speciality_id' => ['required'],
+            'name'           => ['required', 'max:255'],
+            'email'          => ['required', 'max:255', 'unique:users,email,' . $request->id],
+            'phone_number'   => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
+            'gender'         => ['required'],
+            'speciality_id'  => ['required'],
+            'status'         => ['required'],
         );
         $fieldNames = array(
             'name'           => 'Full Name',
@@ -111,6 +112,7 @@ class DoctorController extends Controller
             'phone_number'   => 'Phone Number',
             'gender'         => 'Gender',
             'speciality_id'  => 'Speciality',
+            'status'         => 'Account Status',
         );
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
@@ -125,6 +127,7 @@ class DoctorController extends Controller
                 $user->phone_number  = $request->phone_number;
                 $user->gender        = $request->gender;
                 $user->speciality_id = $request->speciality_id;
+                $user->status        = $request->status;
                 $user->save();
                 Session::flash('success', 'Doctor Updated Successfully');
                 return redirect()->route('admin-doctors');
@@ -141,10 +144,10 @@ class DoctorController extends Controller
             $user = User::where('role', 'Doctor')->where('id', $id)->first();
             $user->delete();
             Session::flash('success', 'Doctor Deleted Successfully');
-            return \back();
+            return redirect()->route('admin-doctors');
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
-            return \back();
+            return redirect()->route('admin-doctors');
         }
     }
 }

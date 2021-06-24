@@ -30,7 +30,7 @@
         </div>
         <div class="card-body card-block">
           <form method="post" enctype="multipart/form-data" action="{{ route('admin-profile') }}">
-          @csrf
+            @csrf
             <div class="form-group">
               <label class=" form-control-label">Username</label>
               <div class="input-group">
@@ -101,6 +101,14 @@
                 <!-- <div class="location text-sm-center"><i class="fa fa-map-marker"></i> California, United States</div> -->
               </div>
               <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <a href="#"> <i class="fa fa-user"></i>
+                    @if(Auth::user()->status == 'Active')
+                    <span class="badge badge-success">{{ Auth::user()->status}}</span>
+                    @else
+                    <span class="badge badge-danger">{{ Auth::user()->status}}</span>
+                    @endif</a>
+                </li>
                 <li class="list-group-item">
                   <a href="#"> <i class="fa fa-male"></i> {{ Auth::user()->role }}</a>
                 </li>

@@ -15,13 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 // Admin
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
@@ -29,17 +26,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     
     //Admin Profile Route
     Route::match(['get', 'post'], '/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('admin-profile');
-    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'change'])->name('admin-change-password');
-
-    
+    Route::match(['get', 'post'], '/change-password', [\App\Http\Controllers\Admin\ProfileController::class, 'change'])->name('admin-change-password');    
 
     //Admin Routes
     Route::get('/admins', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('admin-admins');
     Route::match(['get', 'post'], '/add-admin', [\App\Http\Controllers\Admin\AdminController::class, 'add_new'])->name('admin-add-admin');
-    Route::get('/view-doctor/{id}', [\App\Http\Controllers\Admin\DoctorController::class, 'view'])->name('admin-view-doctor');
-    Route::get('/view-doctor-details/{id}', [\App\Http\Controllers\Admin\DoctorController::class, 'view_details'])->name('admin-view-doctor-details');
-    Route::post('/edit-doctor', [\App\Http\Controllers\Admin\DoctorController::class, 'edit'])->name('admin-edit-doctor');
-    Route::get('/delete-doctor/{id}', [\App\Http\Controllers\Admin\DoctorController::class, 'delete'])->name('admin-delete-doctor');
+    Route::get('/view-admin/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'view'])->name('admin-view-admin');
+    Route::get('/view-admin-details/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'view_details'])->name('admin-view-admin-details');
+    Route::post('/edit-admin', [\App\Http\Controllers\Admin\AdminController::class, 'edit'])->name('admin-edit-admin');
+    Route::get('/delete-admin/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'delete'])->name('admin-delete-admin');
 
     //Doctor Routes
     Route::get('/doctors', [\App\Http\Controllers\Admin\DoctorController::class, 'index'])->name('admin-doctors');

@@ -38,6 +38,7 @@
                   <th>S/N</th>
                   <th>Username</th>
                   <th>Name</th>
+                  <th>Account Status</th>
                   <th>Speciality</th>
                   <th>Added On</th>
                   <th>Action</th>
@@ -49,6 +50,13 @@
                   <td>{{$sn++}}</td>
                   <td>{{$doctor->username}}</td>
                   <td>{{$doctor->name}}</td>
+                  <td>
+                    @if($doctor->status == 'Active')
+                    <span class="badge badge-success">{{ $doctor->status}}</span>
+                    @else
+                    <span class="badge badge-danger">{{ $doctor->status}}</span>
+                    @endif
+                  </td>
                   <td>{{$doctor->speciality->name}}</td>
                   <td>{{ date('D, M j, Y \a\t g:ia', strtotime($doctor->created_at))}}</td>
                   <td>

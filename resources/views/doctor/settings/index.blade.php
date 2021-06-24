@@ -102,6 +102,14 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
+                  <a href="#"> <i class="fa fa-user"></i>
+                    @if(Auth::user()->status == 'Active')
+                    <span class="badge badge-success">{{ Auth::user()->status}}</span>
+                    @else
+                    <span class="badge badge-danger">{{ Auth::user()->status}}</span>
+                    @endif</a>
+                </li>
+                <li class="list-group-item">
                   <a href="#"> <i class="fa fa-male"></i> {{ Auth::user()->role }}</a>
                 </li>
                 <li class="list-group-item">
