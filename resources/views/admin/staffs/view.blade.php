@@ -41,6 +41,10 @@
                         <th>{{$staff->branch->name}}</th>
                       </tr>
                       <tr>
+                        <th>Role:</th>
+                        <th>{{$staff->role}}</th>
+                      </tr>
+                      <tr>
                         <th>Username:</th>
                         <th>{{$staff->username}}</th>
                       </tr>

@@ -16,11 +16,11 @@
 				</li>
 				
 				<h3 class="menu-title">Admin</h3>
-				<li class="menu-item {{ request()->is('admin/admins') ||  request()->is('admin/view-doctor-details/*') || request()->is('admin/view-doctor/*') ? 'active' : '' }}">
+				<li class="menu-item {{ request()->is('admin/admins') ||  request()->is('admin/view-admin-details/*') || request()->is('admin/view-admin/*') ? 'active' : '' }}">
 					<a href="{{ route('admin-admins') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Admins</a>
 				</li>
 				<li class="menu-item {{ request()->is('admin/add-admin')  ? 'active' : '' }}">
-					<a href="{{ route('admin-add-doctor') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Admin</a>
+					<a href="{{ route('admin-add-admin') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Admin</a>
 				</li>
 
 				<h3 class="menu-title">Doctor</h3>

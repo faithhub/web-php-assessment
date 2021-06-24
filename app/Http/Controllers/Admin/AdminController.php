@@ -56,7 +56,7 @@ class AdminController extends Controller
             } else {
                 $this->create_user->create_admin($request);
                 Session::flash('success', 'New Admin Added Successfully');
-                return \redirect()->route('admin-admin');
+                return \redirect()->route('admin-admins');
             }
         } else {
             try {
@@ -72,10 +72,9 @@ class AdminController extends Controller
     public function view($id)
     {
         try {
-            $data['title'] = 'Edit Doctors';
-            $data['specialities'] = Speciality::orderBy('name', 'ASC')->get();
-            $data['doctor'] = User::where('role', 'Doctor')->where('id', $id)->with('speciality:*')->first();
-            return view('admin.doctors.create', $data);
+            $data['title'] = 'Edit Admin';
+            $data['admin'] = User::where('role', 'Admin')->where('id', $id)->first();
+            return view('admin.admins.create', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();
@@ -85,9 +84,9 @@ class AdminController extends Controller
     public function view_details($id)
     {
         try {
-            $data['doctor'] = $doctor = User::where('role', 'Doctor')->where('id', $id)->with('speciality:*')->first();
+            $data['admin'] = $doctor = User::where('role', 'Admin')->where('id', $id)->first();
             $data['title'] = $doctor->name . ' Details';
-            return view('admin.doctors.view', $data);
+            return view('admin.admins.view', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();
@@ -97,18 +96,16 @@ class AdminController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', 'unique:users,email,' . $request->id],
+            'name'         => ['required', 'max:255'],
+            'email'        => ['required', 'max:255', 'unique:users,email,' . $request->id],
             'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
-            'gender' => ['required'],
-            'speciality_id' => ['required'],
+            'gender'       => ['required'],
         );
         $fieldNames = array(
             'name'           => 'Full Name',
             'email'          => 'Email',
             'phone_number'   => 'Phone Number',
             'gender'         => 'Gender',
-            'speciality_id'  => 'Speciality',
         );
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
@@ -117,15 +114,14 @@ class AdminController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
             try {
-                $user                = User::where('role', 'Doctor')->where('id', $request->id)->first();
+                $user                = User::where('role', 'Admin')->where('id', $request->id)->first();
                 $user->name          = $request->name;
                 $user->email         = $request->email;
                 $user->phone_number  = $request->phone_number;
                 $user->gender        = $request->gender;
-                $user->speciality_id = $request->speciality_id;
                 $user->save();
-                Session::flash('success', 'Doctor Updated Successfully');
-                return redirect()->route('admin-doctors');
+                Session::flash('success', 'Admin Updated Successfully');
+                return redirect()->route('admin-admins');
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
                 return \back();
@@ -136,13 +132,14 @@ class AdminController extends Controller
     public function delete($id)
     {
         try {
-            $user = User::where('role', 'Doctor')->where('id', $id)->first();
+            $user = User::where('role', 'Admin')->where('id', $id)->first();
             $user->delete();
-            Session::flash('success', 'Doctor Deleted Successfully');
+            Session::flash('success', 'Admin Deleted Successfully');
+            return redirect()->route('admin-admins');
             return \back();
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
-            return \back();
+            return redirect()->route('admin-admins');
         }
     }
 }

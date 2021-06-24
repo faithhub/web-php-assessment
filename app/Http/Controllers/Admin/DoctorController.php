@@ -99,11 +99,11 @@ class DoctorController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
-            'name' => ['required', 'max:255'],
-            'email' => ['required', 'max:255', 'unique:users,email,' . $request->id],
-            'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
-            'gender' => ['required'],
-            'speciality_id' => ['required'],
+            'name'           => ['required', 'max:255'],
+            'email'          => ['required', 'max:255', 'unique:users,email,' . $request->id],
+            'phone_number'   => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
+            'gender'         => ['required'],
+            'speciality_id'  => ['required'],
         );
         $fieldNames = array(
             'name'           => 'Full Name',
@@ -141,10 +141,10 @@ class DoctorController extends Controller
             $user = User::where('role', 'Doctor')->where('id', $id)->first();
             $user->delete();
             Session::flash('success', 'Doctor Deleted Successfully');
-            return \back();
+            return redirect()->route('admin-doctors');
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
-            return \back();
+            return redirect()->route('admin-doctors');
         }
     }
 }
