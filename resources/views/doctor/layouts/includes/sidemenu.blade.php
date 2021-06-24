@@ -16,11 +16,11 @@
 				</li>
 
 				<h3 class="menu-title">Patient</h3>
-				<li class="menu-item {{ request()->is('admin')  ? 'active' : '' }}">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
+				<li class="menu-item {{ request()->is('doctor/patients')  ? 'active' : '' }}">
+					<a href="{{ route('doctor-patients') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Patient</a>
 				</li>
 				<li class="menu-item {{ request()->is('admin')  ? 'active' : '' }}">
-					<a href="#" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-line-chart"></i>Patient Graph</a>
+					<a href="{{ route('doctor') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-line-chart"></i>Patient Graph</a>
 				</li>
 
 				
