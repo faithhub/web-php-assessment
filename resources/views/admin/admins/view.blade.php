@@ -12,7 +12,7 @@
     <div class="page-header float-right">
       <div class="page-title">
         <ol class="breadcrumb text-right">
-          <li class="active">Staff</li>
+          <li class="active">Doctors</li>
         </ol>
       </div>
     </div>
@@ -24,11 +24,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong class="card-title">{{$staff->name}} Details</strong>
+            <strong class="card-title">{{$doctor->name}} Details</strong>
           </div>
           <div class="card-body">
             <div class="text-right">
-              <a href="{{ route('admin-staffs') }}" class="btn btn-dark mb-2">Back</a>
+              <a href="{{ route('admin-doctors') }}" class="btn btn-dark mb-2">Back</a>
             </div>
 
             <div class="col-md-12">
@@ -37,32 +37,28 @@
                   <table class="table table-hover table-striped table-align-middle mb-0">
                     <thead>
                       <tr>
-                        <th>Branch Name:</th>
-                        <th>{{$staff->branch->name}}</th>
-                      </tr>
-                      <tr>
                         <th>Username:</th>
-                        <th>{{$staff->username}}</th>
+                        <th>{{$doctor->username}}</th>
                       </tr>
                       <tr>
                         <th>Name:</th>
-                        <th>{{$staff->name}}</th>
+                        <th>{{$doctor->name}}</th>
                       </tr>
                       <tr>
                         <th>Email:</th>
-                        <th>{{$staff->email}}</th>
+                        <th>{{$doctor->email}}</th>
                       </tr>
                       <tr>
                         <th>Phone Number:</th>
-                        <th>{{$staff->phone_number}}</th>
+                        <th>{{$doctor->phone_number}}</th>
                       </tr>
                       <tr>
                         <th>Gender:</th>
-                        <th>{{$staff->gender}}</th>
+                        <th>{{$doctor->gender}}</th>
                       </tr>
                       <tr>
-                        <th>Created On:</th>
-                        <th>{{ date('D, M j, Y \a\t g:ia', strtotime($staff->created_at))}}</th>
+                        <th>Speciality:</th>
+                        <th>{{$doctor->speciality->name}}</th>
                       </tr>
                     </thead>
                   </table>
@@ -70,8 +66,8 @@
               </div>
                            
               <div class="text-right m-2">
-                    <a href="{{ route('admin-view-staff', $staff->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-staff', $staff->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                    <a href="{{ route('admin-view-doctor', $doctor->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                    <a href="{{ route('admin-delete-doctor', $doctor->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
               </div>
             </div>
           </div>

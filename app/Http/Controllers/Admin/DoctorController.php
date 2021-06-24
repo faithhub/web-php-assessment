@@ -38,7 +38,6 @@ class DoctorController extends Controller
                 'username'      => ['required', 'max:255', 'unique:users'],
                 'email'         => ['required', 'max:255', 'unique:users'],
                 'phone_number'  => ['required', 'max:255', 'unique:users'],
-                'avatar'        => 'image|mimes:jpg,jpeg,png|max:5000',
                 'gender'        => ['required'],
                 'speciality_id' => ['required'],
             );
@@ -47,7 +46,6 @@ class DoctorController extends Controller
                 'username'       => 'Username',
                 'email'          => 'Email',
                 'phone_number'   => 'Phone Number',
-                'avatar'         => 'Profile Picture',
                 'gender'         => 'Gender',
                 'speciality_id'  => 'Speciality',
             );

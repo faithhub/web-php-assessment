@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Branch;
-use Illuminate\Http\Request;
+use App\Models\Speciality;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class StaffController extends Controller
+class AdminController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware('auth');
@@ -22,28 +23,25 @@ class StaffController extends Controller
     {
         try {
             $data['sn'] = 1;
-            $data['title'] = 'Staffs';
-            $data['staffs'] = User::where('role', 'Staff')->orderBy('id', 'DESC')->get();
-            return view('admin.staffs.index', $data);
+            $data['title'] = 'Admins';
+            $data['admins'] = User::where('role', 'Admin')->orderBy('id', 'DESC')->get();
+            return view('admin.admins.index', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();
         }
     }
-    
     public function add_new(Request $request)
     {
         if ($_POST) {
             $rules = array(
-                'branch_id'    => ['required', 'max:255'],
-                'name'         => ['required', 'max:255'],
-                'username'     => ['required', 'max:255', 'unique:users'],
-                'email'        => ['required', 'max:255', 'unique:users'],
-                'phone_number' => ['required', 'max:255', 'unique:users'],
-                'gender'       => ['required'],
+                'name'          => ['required', 'max:255'],
+                'username'      => ['required', 'max:255', 'unique:users'],
+                'email'         => ['required', 'max:255', 'unique:users'],
+                'phone_number'  => ['required', 'max:255', 'unique:users'],
+                'gender'        => ['required'],
             );
             $fieldNames = array(
-                'branch_id'      => 'Branch Name',
                 'name'           => 'Full Name',
                 'username'       => 'Username',
                 'email'          => 'Email',
@@ -56,20 +54,14 @@ class StaffController extends Controller
                 Session::flash('warning', 'Please check the form again!');
                 return back()->withErrors($validator)->withInput();
             } else {
-                try {
-                    $this->create_user->create_staff($request);
-                    Session::flash('success', 'New Staff Added Successfully');
-                    return \redirect()->route('admin-staffs');
-                } catch (\Throwable $th) {
-                    Session::flash('error', $th->getMessage());
-                    return \back();
-                }
+                $this->create_user->create_admin($request);
+                Session::flash('success', 'New Admin Added Successfully');
+                return \redirect()->route('admin-admin');
             }
         } else {
             try {
-                $data['title'] = 'Add New Staff';
-                $data['branches'] = Branch::orderBy('id', 'DESC')->get();
-                return view('admin.staffs.create', $data);
+                $data['title'] = 'Add New Admin';
+                return view('admin.admins.create', $data);
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
                 return \back();
@@ -80,10 +72,10 @@ class StaffController extends Controller
     public function view($id)
     {
         try {
-            $data['title'] = 'Edit Staff';
-            $data['staff'] = User::where('role', 'Staff')->where('id', $id)->first();
-            $data['branches'] = Branch::orderBy('id', 'DESC')->get();
-            return view('admin.staffs.create', $data);
+            $data['title'] = 'Edit Doctors';
+            $data['specialities'] = Speciality::orderBy('name', 'ASC')->get();
+            $data['doctor'] = User::where('role', 'Doctor')->where('id', $id)->with('speciality:*')->first();
+            return view('admin.doctors.create', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();
@@ -93,9 +85,9 @@ class StaffController extends Controller
     public function view_details($id)
     {
         try {
-            $data['staff'] = $staff = User::where('role', 'Staff')->where('id', $id)->first();
-            $data['title'] = $staff->name . ' Details';
-            return view('admin.staffs.view', $data);
+            $data['doctor'] = $doctor = User::where('role', 'Doctor')->where('id', $id)->with('speciality:*')->first();
+            $data['title'] = $doctor->name . ' Details';
+            return view('admin.doctors.view', $data);
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();
@@ -105,18 +97,18 @@ class StaffController extends Controller
     public function edit(Request $request)
     {
         $rules = array(
-            'branch_id'     => ['required', 'max:255'],
-            'name'          => ['required', 'max:255'],
-            'email'         => ['required', 'max:255', 'unique:users,email,' . $request->id],
-            'phone_number'  => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
-            'gender'        => ['required'],
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'max:255', 'unique:users,email,' . $request->id],
+            'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
+            'gender' => ['required'],
+            'speciality_id' => ['required'],
         );
         $fieldNames = array(
-            'branch_id'      => 'Branch Name',
             'name'           => 'Full Name',
             'email'          => 'Email',
             'phone_number'   => 'Phone Number',
             'gender'         => 'Gender',
+            'speciality_id'  => 'Speciality',
         );
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
@@ -125,16 +117,15 @@ class StaffController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
             try {
-                $user                = User::where('role', 'Staff')->where('id', $request->id)->first();
-                $user->branch_id     = $request->branch_id;
+                $user                = User::where('role', 'Doctor')->where('id', $request->id)->first();
                 $user->name          = $request->name;
                 $user->email         = $request->email;
                 $user->phone_number  = $request->phone_number;
                 $user->gender        = $request->gender;
                 $user->speciality_id = $request->speciality_id;
                 $user->save();
-                Session::flash('success', 'Staff Updated Successfully');
-                return redirect()->route('admin-staffs');
+                Session::flash('success', 'Doctor Updated Successfully');
+                return redirect()->route('admin-doctors');
             } catch (\Throwable $th) {
                 Session::flash('error', $th->getMessage());
                 return \back();
@@ -145,10 +136,10 @@ class StaffController extends Controller
     public function delete($id)
     {
         try {
-            $user = User::where('role', 'Staff')->where('id', $id)->first();
+            $user = User::where('role', 'Doctor')->where('id', $id)->first();
             $user->delete();
-            Session::flash('success', 'Staff Deleted Successfully');
-            return redirect()->route('admin-staffs');
+            Session::flash('success', 'Doctor Deleted Successfully');
+            return \back();
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
             return \back();

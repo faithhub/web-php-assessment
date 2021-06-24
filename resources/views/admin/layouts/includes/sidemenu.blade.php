@@ -14,6 +14,14 @@
 				<li class="{{ request()->is('admin')  ? 'active' : '' }}">
 					<a href="{{ route('admin') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
 				</li>
+				
+				<h3 class="menu-title">Admin</h3>
+				<li class="menu-item {{ request()->is('admin/admins') ||  request()->is('admin/view-doctor-details/*') || request()->is('admin/view-doctor/*') ? 'active' : '' }}">
+					<a href="{{ route('admin-admins') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Admins</a>
+				</li>
+				<li class="menu-item {{ request()->is('admin/add-admin')  ? 'active' : '' }}">
+					<a href="{{ route('admin-add-doctor') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-users"></i>Add New Admin</a>
+				</li>
 
 				<h3 class="menu-title">Doctor</h3>
 				<li class="menu-item {{ request()->is('admin/doctors') ||  request()->is('admin/view-doctor-details/*') || request()->is('admin/view-doctor/*') ? 'active' : '' }}">
@@ -24,7 +32,7 @@
 				</li>
 
 				<h3 class="menu-title">Branch</h3>
-				<li class="menu-item {{ request()->is('admin/doctors') ||  request()->is('admin/view-doctor-details/*') || request()->is('admin/view-doctor/*') ? 'active' : '' }}">
+				<li class="menu-item {{ request()->is('admin/doctors') ||  request()->is('admin/edit-branch/*') ? 'active' : '' }}">
 					<a href="{{ route('admin-branches') }}" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>All Branches</a>
 				</li>
 				<li class="menu-item {{ request()->is('admin/add-doctor')  ? 'active' : '' }}">

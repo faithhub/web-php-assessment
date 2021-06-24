@@ -44,6 +44,20 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function create_admin($data)
+    {
+        $save = new self;
+        $save->name = $data['name'];
+        $save->email = $data['email'];
+        $save->username = $data['username'];
+        $save->phone_number = $data['phone_number'];
+        $save->gender = $data['gender'];
+        $save->role = 'Admin';
+        $save->password = Hash::make($data['password']);
+        $save->save();
+        return $save;
+    }
+
     public function create_doctor($data)
     {
         $save = new self;
