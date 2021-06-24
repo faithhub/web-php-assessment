@@ -52,7 +52,7 @@ class PatientController extends Controller
           return back()->withErrors($validator)->withInput();
       } else {
           $this->patient->create($request);
-          Session::flash('success', 'New Doctor Added Successfully');
+          Session::flash('success', 'New Patient Added Successfully');
           return \redirect()->route('patients');
       }
   } else {

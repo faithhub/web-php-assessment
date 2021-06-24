@@ -39,6 +39,7 @@
                   <th>Name</th>
                   <th>Phone Number</th>
                   <th>Date of Birth</th>
+                  <th>Created at</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -48,7 +49,7 @@
                   <td>{{$sn++}}</td>
                   <td>{{$patient->name}}</td>
                   <td>{{$patient->phone_number}}</td>
-                  <td>{{ date('D, M j, Y \a\t g:ia', strtotime($patient->date_of_birth))}}</td>
+                  <td>{{ date('D, M j, Y', strtotime($patient->date_of_birth))}}</td>
                   <td>{{ date('D, M j, Y \a\t g:ia', strtotime($patient->created_at))}}</td>
                   <td>
                     <a href="{{ route('admin-view-doctor-details', $patient->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>
