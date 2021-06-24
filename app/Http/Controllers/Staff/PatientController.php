@@ -31,16 +31,16 @@ class PatientController extends Controller
       $rules = array(
           'name'          => ['required', 'max:255'],
           'phone_number'  => ['required', 'max:255', 'unique:patients'],
+          'address'  => ['required', 'max:255',],
           'date_of_birth'  => ['required'],
-          'address'  => ['required'],
           'gender'        => ['required']
       );
 
       $fieldNames = array(
           'name'           => 'Full Name',
           'phone_number'   => 'Phone Number',
+          'address'  => 'Address',
           'date_of_birth'   => 'Date of Birth',
-          'Address'  => 'Address',
           'gender'         => 'Gender'
       );
 
