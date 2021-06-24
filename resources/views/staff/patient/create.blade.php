@@ -55,7 +55,7 @@
                   <label class=" form-control-label">Address</label>
                   <div class="input-group">
                     <div class="input-group-addon"><i class="fa fa-address-book"></i></div>
-                    <textarea class="form-control" name="address">@isset($patient->address) {{ $patient->address }} @else {{ old('address') }} @endisset</textarea>
+                    <textarea class="form-control" name="address">@isset($patient->address){{ $patient->address }}@else{{ old('address') }}@endisset</textarea>
                   </div>
                   @error('address')
                   <small class="form-text text-danger">{{ $message }}</small>

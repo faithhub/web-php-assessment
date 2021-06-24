@@ -39,6 +39,7 @@
                   <th>Name</th>
                   <th>Phone Number</th>
                   <th>Date of Birth</th>
+                  <th>Created at</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -48,7 +49,11 @@
                   <td>{{$sn++}}</td>
                   <td>{{$patient->name}}</td>
                   <td>{{$patient->phone_number}}</td>
+<<<<<<< HEAD:resources/views/staff/patient/index.blade.php
                   <td>{{ Carbon\Carbon::parse($patient->date_of_birth)->diffInYears() }} years</td>
+=======
+                  <td>{{ date('D, M j, Y', strtotime($patient->date_of_birth))}}</td>
+>>>>>>> 0bfaffa2ed9939fc1ef06779b9f071feafc44edf:resources/views/staff/dashboard/patient/index.blade.php
                   <td>{{ date('D, M j, Y \a\t g:ia', strtotime($patient->created_at))}}</td>
                   <td>
                     <a href="{{ route('admin-view-doctor-details', $patient->id) }}" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> View</a>

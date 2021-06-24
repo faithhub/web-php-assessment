@@ -27,6 +27,7 @@ class PatientController extends Controller
         return view('staff.patient.index', $data);
     }
 
+<<<<<<< HEAD
     public function add_new(Request $request)
     {
         if ($_POST) {
@@ -45,10 +46,31 @@ class PatientController extends Controller
                 'Address'        => 'Address',
                 'gender'         => 'Gender'
             );
+=======
+  public function add_new(Request $request)
+  {
+    if ($_POST) {
+      $rules = array(
+          'name'          => ['required', 'max:255'],
+          'phone_number'  => ['required', 'max:255', 'unique:patients'],
+          'address'  => ['required', 'max:255',],
+          'date_of_birth'  => ['required'],
+          'gender'        => ['required']
+      );
+
+      $fieldNames = array(
+          'name'           => 'Full Name',
+          'phone_number'   => 'Phone Number',
+          'address'  => 'Address',
+          'date_of_birth'   => 'Date of Birth',
+          'gender'         => 'Gender'
+      );
+>>>>>>> 0bfaffa2ed9939fc1ef06779b9f071feafc44edf
 
             $validator = Validator::make($request->all(), $rules);
             $validator->setAttributeNames($fieldNames);
 
+<<<<<<< HEAD
             if ($validator->fails()) {
                 Session::flash('warning', 'Please check the form again!');
                 return back()->withErrors($validator)->withInput();
@@ -67,4 +89,24 @@ class PatientController extends Controller
             }
         }
     }
+=======
+      if ($validator->fails()) {
+          Session::flash('warning', 'Please check the form again!');
+          return back()->withErrors($validator)->withInput();
+      } else {
+          $this->patient->create($request);
+          Session::flash('success', 'New Patient Added Successfully');
+          return \redirect()->route('patients');
+      }
+  } else {
+      try {
+          $data['title'] = 'Add New Patient';
+          return view('staff.dashboard.patient.create', $data);
+      } catch (\Throwable $th) {
+          Session::flash('error', $th->getMessage());
+          return \back();
+      }
+  }
+  }
+>>>>>>> 0bfaffa2ed9939fc1ef06779b9f071feafc44edf
 }
