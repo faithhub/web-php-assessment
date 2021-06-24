@@ -61,7 +61,7 @@
           <div class="stat-icon dib"><i class="ti-layout-grid2 text-warning border-warning"></i></div>
           <div class="stat-content dib">
             <div class="stat-text">Total Number of Branch</div>
-            <div class="stat-digit">{{$admin}}</div>
+            <div class="stat-digit">{{$branch}}</div>
           </div>
         </div>
       </div>

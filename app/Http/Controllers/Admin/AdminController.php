@@ -100,12 +100,14 @@ class AdminController extends Controller
             'email'        => ['required', 'max:255', 'unique:users,email,' . $request->id],
             'phone_number' => ['required', 'max:255', 'unique:users,phone_number,' . $request->id],
             'gender'       => ['required'],
+            'status'       => ['required'],
         );
         $fieldNames = array(
             'name'           => 'Full Name',
             'email'          => 'Email',
             'phone_number'   => 'Phone Number',
             'gender'         => 'Gender',
+            'status'         => 'Account Status',
         );
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($fieldNames);
@@ -119,6 +121,7 @@ class AdminController extends Controller
                 $user->email         = $request->email;
                 $user->phone_number  = $request->phone_number;
                 $user->gender        = $request->gender;
+                $user->status        = $request->status;
                 $user->save();
                 Session::flash('success', 'Admin Updated Successfully');
                 return redirect()->route('admin-admins');

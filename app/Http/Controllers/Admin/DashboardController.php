@@ -22,7 +22,7 @@ class DashboardController extends Controller
         $data['admin'] = User::where('role', 'Admin')->where('status', 'Active')->count();
         $data['doctor'] = User::where('role', 'Doctor')->where('status', 'Active')->count();
         $data['staff'] = User::where('role', 'Staff')->where('status', 'Active')->count();
-        // $data['branch'] = Branch::where('status', 'Active')->count();
+        $data['branch'] = Branch::where('status', 'Active')->count();
         return view('admin.dashboard.index', $data);
     }
 }

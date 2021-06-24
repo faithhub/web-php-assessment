@@ -114,8 +114,9 @@ class BranchController extends Controller
     public function delete($id)
     {
         try {
-            $branch = Branch::find($id);
-            $branch->delete();
+            $branch         = Branch::find($id);
+            $branch->status = 'Inactive';
+            $branch->save();
             Session::flash('success', 'Branch Deleted Successfully');
             return redirect()->route('admin-branches');
         } catch (\Throwable $th) {

@@ -61,6 +61,16 @@
                         <th>{{$admin->gender}}</th>
                       </tr>
                       <tr>
+                        <th>Acoount Status:</th>
+                        <th>
+                          @if($admin->status == 'Active')
+                          <span class="badge badge-success">{{ $admin->status}}</span>
+                          @else
+                          <span class="badge badge-danger">{{ $admin->status}}</span>
+                          @endif
+                        </th>
+                      </tr>
+                      <tr>
                         <th>Created On:</th>
                         <th>{{ date('D, M j, Y \a\t g:ia', strtotime($admin->created_at))}}</th>
                       </tr>
@@ -68,10 +78,10 @@
                   </table>
                 </div>
               </div>
-                           
+
               <div class="text-right m-2">
-                    <a href="{{ route('admin-view-admin', $admin->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
-                    <a href="{{ route('admin-delete-admin', $admin->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                <a href="{{ route('admin-view-admin', $admin->id) }}" class="btn btn-success"><i class="fa fa-pencil"></i> Edit</a>
+                <a href="{{ route('admin-delete-admin', $admin->id) }}" onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
               </div>
             </div>
           </div>

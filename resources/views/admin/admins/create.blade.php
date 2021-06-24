@@ -98,6 +98,20 @@
                   <small class="form-text text-danger">{{ $message }}</small>
                   @enderror
                 </div>
+                <div class="form-group">
+                  <label class=" form-control-label">Account Status</label>
+                  <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                    <select class="form-control" name="status">
+                      <option value="">Select Status</option>
+                      <option value="Active" @isset($admin) {{ $admin->status == "Active" ? "selected" : "" }} @else {{ old("status") == "Active" ? "selected" : "" }} @endisset>Active</option>
+                      <option value="Inactive" @isset($admin) {{ $admin->status == "Inactive" ? "selected" : "" }} @else {{ old("status") == "Inactive" ? "selected" : "" }} @endisset>Inactive</option>
+                    </select>
+                  </div>
+                  @error('status')
+                  <small class="form-text text-danger">{{ $message }}</small>
+                  @enderror
+                </div>
                 <div class="text-right">
                   <button class="btn btn-success">@isset($admin) Update @else Create @endisset</button>
                 </div>
