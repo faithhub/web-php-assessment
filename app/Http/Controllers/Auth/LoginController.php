@@ -66,11 +66,17 @@ class LoginController extends Controller
                         break;
 
                     default:
-                    return redirect()->route('login');
+                        return redirect()->route('login');
                         break;
                 }
+            } elseif (Auth::user()->status == "Inactive") {
+                Session::flash('warning', 'Your account is Inactive');
+                Auth::logout();
+                return back()->withInput($request->all())->withErrors([
+                    'email' => 'Access denied! Your account is Inactive.'
+                ]);
             } else {
-                Session::flash('warning', 'Your has been Blocked');
+                Session::flash('warning', 'Your account has been Deleted');
                 Auth::logout();
                 return back()->withInput($request->all())->withErrors([
                     'email' => 'Access denied! Your account has been Deleted.'
